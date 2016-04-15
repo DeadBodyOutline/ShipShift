@@ -13,3 +13,13 @@ ExternalProject_Add(sfml-tmxloader
   UPDATE_COMMAND ""
   INSTALL_COMMAND ""
 )
+
+ExternalProject_Add(thor
+  GIT_REPOSITORY https://github.com/Bromeon/Thor.git
+  SOURCE_DIR ${3RDPARTY_PREFIX}/thor
+  CONFIGURE_COMMAND cmake .
+  BUILD_COMMAND make
+  BUILD_IN_SOURCE 1
+  UPDATE_COMMAND ""
+  INSTALL_COMMAND ""
+)

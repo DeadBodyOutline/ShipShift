@@ -14,7 +14,11 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-include_directories( ${CMAKE_SOURCE_DIR}/3rdparty/dependencies/sfml-tmxloader/include)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/dependencies/sfml-tmxloader/include)
 link_directories(${CMAKE_SOURCE_DIR}/3rdparty/dependencies/sfml-tmxloader)
+
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/dependencies/thor/include)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/dependencies/thor/extlibs/aurora/include)
+link_directories(${CMAKE_SOURCE_DIR}/3rdparty/dependencies/thor/src)
 
 add_subdirectory(src)

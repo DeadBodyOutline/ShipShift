@@ -22,10 +22,14 @@ endif()
 
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/animatedsprite.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/animation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} tmx-loader)
 
-target_link_libraries(${PROJECT_NAME} tmx-loader ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${ZLIB_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} tmx-loader thor ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${ZLIB_LIBRARIES})
