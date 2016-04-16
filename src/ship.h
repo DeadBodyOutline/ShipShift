@@ -39,6 +39,13 @@ public:
     // 0.0-1.0
     virtual void setTransparency(float value);
 
+    virtual void move(const float x, const float y);
+
+    virtual void setMaxVelocity(float maxVelocity);
+    virtual float maxVelocity() const;
+    virtual void setVelModifier(float velModifier);
+    virtual float velModifier() const;
+
     virtual void update(sf::Time delta = sf::Time::Zero);
 
 protected:
@@ -50,7 +57,9 @@ protected:
     int m_height;
 
     float m_hull;
-    float m_velocity;
+
+    float m_maxVelocity;
+    float m_velModifier;
 };
 
 #endif // __SHIP_H__

@@ -6,7 +6,8 @@ Ship::Ship(int width, int height)
     , m_width(width)
     , m_height(height)
     , m_hull(100.f)
-    , m_velocity(1.f)
+    , m_maxVelocity(100.f)
+    , m_velModifier(1.f)
 {
 }
 
@@ -143,6 +144,46 @@ void Ship::setTransparency(float value)
     int transparency = std::max(0.0, std::min(std::ceil(value * 255.0), 255.0));
 
     // TODO setFillColor and setOutlineColor transparency
+}
+
+void Ship::move(const float x, const float y)
+{
+    if (!m_ship)
+        return;
+
+    m_ship->move(x, y);
+}
+
+void Ship::setMaxVelocity(float maxVelocity)
+{
+    if (!m_ship)
+        return;
+
+    m_maxVelocity = maxVelocity;
+}
+
+float Ship::maxVelocity() const
+{
+    if (!m_ship)
+        return -1.f;
+
+    return m_maxVelocity;
+}
+
+void Ship::setVelModifier(float velModifier)
+{
+    if (!m_ship)
+        return;
+
+    m_velModifier = velModifier;
+}
+
+float Ship::velModifier() const
+{
+    if (!m_ship)
+        return -1.f;
+
+    return m_velModifier;
 }
 
 void Ship::update(sf::Time delta)

@@ -10,6 +10,9 @@ RectangleShip::RectangleShip(int width, int height)
     setOutlineColor(255, 255, 255);
 
     m_ship->setOrigin(width / 2, height / 2);
+
+    setVelModifier(.5f);
+    setMaxVelocity(50.f);
 }
 
 RectangleShip::~RectangleShip()

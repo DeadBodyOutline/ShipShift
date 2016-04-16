@@ -14,6 +14,9 @@ TriangleShip::TriangleShip(int width, int height)
     dynamic_cast<sf::ConvexShape *>(m_ship)->setPoint(2, sf::Vector2f(m_width, 0));
 
     m_ship->setOrigin(width / 2, -height / 2);
+
+    setVelModifier(2.f);
+    setMaxVelocity(200.f);
 }
 
 TriangleShip::~TriangleShip()
