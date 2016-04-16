@@ -49,15 +49,15 @@ int main()
     });
 
     /// XXX just to quick test ship changing
-    input.registerKeyHandler(sf::Keyboard::Num1, [&](){
+    input.registerKeyHandler(sf::Keyboard::Num1, [&](sf::Event e){
         player.changeShipType(Player::ShipType::Triangle);
     });
 
-    input.registerKeyHandler(sf::Keyboard::Num2, [&](){
+    input.registerKeyHandler(sf::Keyboard::Num2, [&](sf::Event e){
         player.changeShipType(Player::ShipType::Rectangle);
     });
 
-    input.registerKeyHandler(sf::Keyboard::Num3, [&](){
+    input.registerKeyHandler(sf::Keyboard::Num3, [&](sf::Event e){
         player.changeShipType(Player::ShipType::Circle);
     });
     ///
