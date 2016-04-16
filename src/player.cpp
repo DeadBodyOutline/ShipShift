@@ -1,16 +1,17 @@
+#include <algorithm>
+
 #include "player.h"
 
 Player::Player(int width, int height)
     : sf::Drawable()
     , m_currentShip(nullptr)
+    , m_step(10.f)
 {
     m_triangleShip = std::make_shared<TriangleShip>(width, height);
     m_rectangleShip = std::make_shared<RectangleShip>(width, height);
     m_circleShip = std::make_shared<CircleShip>(width / 2);
 
     changeShipType(ShipType::Triangle);
-    //changeShipType(ShipType::Rectangle);
-    //changeShipType(ShipType::Circle);
 }
 
 Player::~Player()
@@ -19,17 +20,40 @@ Player::~Player()
 
 void Player::attack()
 {
+    if (!m_currentShip)
+        return;
+
+    m_currentShip->attack();
 }
 
 void Player::altAttack()
 {
+    if (!m_currentShip)
+        return;
+
+    m_currentShip->altAttack();
+}
+
+void Player::accelerate()
+{
+    if (!m_currentShip)
+        return;
+
+    float velocity = m_velocity + (m_step * m_currentShip->velModifier());
+    m_velocity =  std::min(velocity, m_currentShip->maxVelocity());
+}
+
+void Player::deacelerate()
+{
+    if (!m_currentShip)
+        return;
+
+    float velocity = m_velocity - (m_step * m_currentShip->velModifier());
+    m_velocity =  std::max(velocity, -m_currentShip->maxVelocity());
 }
 
 void Player::changeShipType(ShipType type)
 {
-    //if (type == m_shipType)
-        //return;
-
     m_shipType = type;
 
     switch (type) {
@@ -74,10 +98,21 @@ sf::Vector2f Player::position() const
     return m_currentShip->position();
 }
 
+void Player::update(float delta)
+{
+    update(sf::seconds(delta));
+}
+
 void Player::update(sf::Time delta)
 {
     if (!m_currentShip)
         return;
+
+    sf::Vector2f newPos(0.f, 0.f);
+    newPos.y -= m_velocity; // TODO use sin/cos to determinate final vel
+
+    newPos *= delta.asSeconds();
+    m_currentShip->move(newPos.x, newPos.y);
 
     m_currentShip->update(delta);
 }

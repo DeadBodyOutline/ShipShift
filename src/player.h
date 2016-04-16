@@ -26,6 +26,9 @@ public:
     void attack();
     void altAttack();
 
+    void accelerate();
+    void deacelerate();
+
     void changeShipType(ShipType type);
     ShipType shipType();
 
@@ -33,12 +36,12 @@ public:
     void setPosition(sf::Vector2f point);
     sf::Vector2f position() const;
 
+    void update(float delta);
     void update(sf::Time delta = sf::Time::Zero);
 
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    //void *m_currentShip;
     std::shared_ptr<Ship> m_currentShip;
     std::shared_ptr<TriangleShip> m_triangleShip;
     std::shared_ptr<RectangleShip> m_rectangleShip;
@@ -46,6 +49,8 @@ private:
 
     ShipType m_shipType;
 
+    float m_velocity;
+    float m_step;
 };
 
 #endif // __PLAYER_H__
