@@ -56,6 +56,10 @@ void Player::changeShipType(ShipType type)
 {
     m_shipType = type;
 
+    sf::Vector2f currPos = sf::Vector2f();
+    if (m_currentShip)
+        currPos = position();
+
     switch (type) {
         case ShipType::Triangle:
             m_currentShip = m_triangleShip;
@@ -68,6 +72,11 @@ void Player::changeShipType(ShipType type)
             break;
         default:
             break;
+    }
+
+    if (currPos != sf::Vector2f()) {
+        m_currentShip->setPosition(currPos);
+        revaluateVelocity();
     }
 }
 
@@ -115,6 +124,14 @@ void Player::update(sf::Time delta)
     m_currentShip->move(newPos.x, newPos.y);
 
     m_currentShip->update(delta);
+}
+
+// limit the velocity when shapeshifting the ship
+void Player::revaluateVelocity()
+{
+    m_velocity = (m_velocity > 0)
+        ? std::min(m_velocity, m_currentShip->maxVelocity())
+        : std::max(m_velocity, -m_currentShip->maxVelocity());
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -40,6 +40,8 @@ public:
     void update(sf::Time delta = sf::Time::Zero);
 
 private:
+    void revaluateVelocity();
+
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     std::shared_ptr<Ship> m_currentShip;

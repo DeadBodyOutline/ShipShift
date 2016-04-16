@@ -48,6 +48,20 @@ int main()
         player.altAttack();
     });
 
+    /// XXX just to quick test ship changing
+    input.registerKeyHandler(sf::Keyboard::Num1, [&](){
+        player.changeShipType(Player::ShipType::Triangle);
+    });
+
+    input.registerKeyHandler(sf::Keyboard::Num2, [&](){
+        player.changeShipType(Player::ShipType::Rectangle);
+    });
+
+    input.registerKeyHandler(sf::Keyboard::Num3, [&](){
+        player.changeShipType(Player::ShipType::Circle);
+    });
+    ///
+
     WaveController waveController(renderWindow);
 
     while (renderWindow.isOpen())
