@@ -43,7 +43,7 @@ int main()
         // TODO: trigger special power
     });
 
-    WaveController waveController;
+    WaveController waveController(renderWindow);
 
     while (renderWindow.isOpen())
     {
@@ -61,6 +61,7 @@ int main()
         }
 
         renderWindow.clear();
+        waveController.draw();
         renderWindow.display();
     }
 

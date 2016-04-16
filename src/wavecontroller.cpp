@@ -1,9 +1,13 @@
 #include "wavecontroller.h"
 
 #include <iostream>
+#include <random>
 
-WaveController::WaveController()
-    : m_currentWave(0)
+#include "mediumcluster.h"
+
+WaveController::WaveController(sf::RenderWindow &renderWindow)
+    : m_renderWindow(renderWindow)
+    , m_currentWave(0)
 {
 }
 
@@ -21,6 +25,12 @@ void WaveController::update(float dt)
     }
 }
 
+void WaveController::draw()
+{
+    for (Cluster *cluster : m_clusters)
+        cluster->draw();
+}
+
 void WaveController::spawnCluster()
 {
     m_timeToNewWave = 30.f; // 30 seconds for each wave. This value can be changed below in the spawn rules
@@ -31,7 +41,7 @@ void WaveController::spawnCluster()
     // randomized, with increased difficulty
 
     if (m_currentWave == 1) {
-        // TODO: spawn first wave, quick enemies to fight with the triangle ship
+        spawnMediumEnemyCluster();
     } else if (m_currentWave == 2) {
         // TODO: spawn second wave, small enemies that shot bullets from all directions
         // to fight with the circle ship
@@ -52,4 +62,11 @@ void WaveController::spawnCluster()
     }
 
     std::cout << "Spawnning new wave! Wave number " << m_currentWave << ". Time to new wave: " << m_timeToNewWave << " seconds." << std::endl;
+}
+
+void WaveController::spawnMediumEnemyCluster()
+{
+    MediumCluster *cluster = new MediumCluster(m_renderWindow);
+    cluster->spawn();
+    m_clusters.push_back(cluster);
 }
