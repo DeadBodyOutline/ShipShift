@@ -30,6 +30,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ship.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/triangleship.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
