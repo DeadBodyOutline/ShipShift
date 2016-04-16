@@ -31,6 +31,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ship.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/triangleship.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/rectangleship.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
