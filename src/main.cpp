@@ -16,30 +16,30 @@ int main()
 
     Input input;
 
-    input.registerHandler(sf::Event::Closed, [&](){ renderWindow.close(); });
-    input.registerKeyHandler(sf::Keyboard::Escape, [&](){ renderWindow.close(); });
+    input.registerHandler(sf::Event::Closed, [&](sf::Event e){ renderWindow.close(); });
+    input.registerKeyHandler(sf::Keyboard::Escape, [&](sf::Event e){ renderWindow.close(); });
 
-    input.registerKeyHandler(sf::Keyboard::Left, [&](){
+    input.registerKeyHandler(sf::Keyboard::Left, [&](sf::Event e){
         // TODO: rotate spaceship left
     });
 
-    input.registerKeyHandler(sf::Keyboard::Right, [&](){
+    input.registerKeyHandler(sf::Keyboard::Right, [&](sf::Event e){
         // TODO: rotate spaceship right
     });
 
-    input.registerKeyHandler(sf::Keyboard::Up, [&](){
+    input.registerKeyHandler(sf::Keyboard::Up, [&](sf::Event e){
         // TODO: increase spaceship speed
     });
 
-    input.registerKeyHandler(sf::Keyboard::Down, [&](){
+    input.registerKeyHandler(sf::Keyboard::Down, [&](sf::Event e){
         // TODO: decrease spaceship speed
     });
 
-    input.registerKeyHandler(sf::Keyboard::Space, [&](){
+    input.registerKeyHandler(sf::Keyboard::Space, [&](sf::Event e){
         // TODO: fire
     });
 
-    input.registerKeyHandler(sf::Keyboard::LControl, [&](){
+    input.registerKeyHandler(sf::Keyboard::LControl, [&](sf::Event e){
         // TODO: trigger special power
     });
 

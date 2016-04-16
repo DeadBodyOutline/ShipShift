@@ -9,12 +9,12 @@
 
 class Input {
 public:
-    void registerHandler(sf::Event::EventType e, std::function<void()> handler);
-    void registerKeyHandler(sf::Keyboard::Key code, std::function<void()> handler);
+    void registerHandler(sf::Event::EventType e, std::function<void(sf::Event)> handler);
+    void registerKeyHandler(sf::Keyboard::Key code, std::function<void(sf::Event)> handler);
     void handleEvents(sf::RenderWindow& renderWindow);
 private:
-    std::map<sf::Event::EventType, std::function<void()>> m_events;
-    std::map<sf::Keyboard::Key, std::function<void()>> m_keyEvents;
+    std::map<sf::Event::EventType, std::function<void(sf::Event)>> m_events;
+    std::map<sf::Keyboard::Key, std::function<void(sf::Event)>> m_keyEvents;
 };
 
 #endif // __INPUT_H__
