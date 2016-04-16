@@ -11,7 +11,7 @@ CircleShip::CircleShip(int radius)
 
     //dynamic_cast<sf::CircleShape *>(m_ship)->setPointCount(400); // we can define the number of point here
 
-    m_ship->setOrigin(radius / 2, -radius / 2);
+    m_ship->setOrigin(radius, radius);
 }
 
 CircleShip::~CircleShip()

@@ -9,7 +9,7 @@ RectangleShip::RectangleShip(int width, int height)
     setOutlineThickness(2);
     setOutlineColor(255, 255, 255);
 
-    m_ship->setOrigin(width / 2, -height / 2);
+    m_ship->setOrigin(width / 2, height / 2);
 }
 
 RectangleShip::~RectangleShip()
