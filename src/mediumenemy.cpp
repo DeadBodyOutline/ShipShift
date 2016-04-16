@@ -1,7 +1,7 @@
 #include "mediumenemy.h"
 
 MediumEnemy::MediumEnemy(int width, int height)
-    : Ship(width, height)
+    : Boid(width, height)
 {
     m_ship = new sf::ConvexShape(4);
 
@@ -33,5 +33,5 @@ void MediumEnemy::altAttack()
 
 void MediumEnemy::update(sf::Time delta)
 {
-
+    Boid::update(delta);
 }

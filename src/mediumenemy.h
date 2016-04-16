@@ -1,9 +1,9 @@
 #ifndef __MEDIUMENEMY_H__
 #define __MEDIUMENEMY_H__
 
-#include "ship.h"
+#include "boid.h"
 
-class MediumEnemy : public Ship
+class MediumEnemy : public Boid
 {
 public:
     MediumEnemy(int width, int height);

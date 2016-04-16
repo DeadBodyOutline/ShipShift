@@ -7,6 +7,6 @@ Cluster::Cluster(sf::RenderWindow &renderWindow)
 
 void Cluster::draw()
 {
-    for (Ship *ship : m_ships)
-        m_renderWindow.draw(*ship);
+    for (Boid *boid : m_boids)
+        m_renderWindow.draw(*boid);
 }

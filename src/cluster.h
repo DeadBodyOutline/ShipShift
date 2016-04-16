@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "ship.h"
+#include "boid.h"
 
 class Cluster
 {
@@ -22,7 +22,7 @@ public:
 
 protected:
     sf::RenderWindow &m_renderWindow;
-    std::vector<Ship *> m_ships;
+    std::vector<Boid *> m_boids;
 };
 
 #endif // __CLUSTER_H__

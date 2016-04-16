@@ -1,5 +1,7 @@
 #include "stuffmath.h"
 
+#include <cmath>
+
 // Code based on the following sources:
 // http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method
 // http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Approximations_that_depend_on_IEEE_representation

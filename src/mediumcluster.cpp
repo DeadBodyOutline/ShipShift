@@ -7,9 +7,13 @@ MediumCluster::MediumCluster(sf::RenderWindow &renderWindow)
 
 void MediumCluster::update(float dt)
 {
-    // TODO: loop and update enemies
+    // TODO: remove, test code
+    int i = 0;
+    for (Boid *boid : m_boids) {
+        boid->seek(sf::Vector2f(400.f, 400.f));
+        boid->update(sf::seconds(dt));
+    }
 }
-
 
 void MediumCluster::spawn()
 {
@@ -22,6 +26,8 @@ void MediumCluster::spawn()
     for (int i = 0; i < 10; ++i) {
         MediumEnemy *enemy = new MediumEnemy(20, 20);
         enemy->setPosition(wDis(gen), hDis(gen));
-        m_ships.push_back(static_cast<Ship *>(enemy));
+        enemy->setMaxSpeed(0.8f);
+        enemy->setMaxForce(0.1f);
+        m_boids.push_back(static_cast<Boid *>(enemy));
     }
 }

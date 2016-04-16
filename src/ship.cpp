@@ -147,6 +147,7 @@ void Ship::setTransparency(float value)
 
 void Ship::update(sf::Time delta)
 {
+
 }
 
 void Ship::draw(sf::RenderTarget& target, sf::RenderStates states) const
