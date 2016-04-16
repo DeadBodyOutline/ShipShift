@@ -29,6 +29,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/largecluster.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/mediumcluster.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/mediumenemy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/smallcluster.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
