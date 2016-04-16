@@ -18,6 +18,30 @@ int main()
     input.registerHandler(sf::Event::Closed, [&](){ renderWindow.close(); });
     input.registerKeyHandler(sf::Keyboard::Escape, [&](){ renderWindow.close(); });
 
+    input.registerKeyHandler(sf::Keyboard::Left, [&](){
+        // TODO: rotate spaceship left
+    });
+
+    input.registerKeyHandler(sf::Keyboard::Right, [&](){
+        // TODO: rotate spaceship right
+    });
+
+    input.registerKeyHandler(sf::Keyboard::Up, [&](){
+        // TODO: increase spaceship speed
+    });
+
+    input.registerKeyHandler(sf::Keyboard::Down, [&](){
+        // TODO: decrease spaceship speed
+    });
+
+    input.registerKeyHandler(sf::Keyboard::Space, [&](){
+        // TODO: fire
+    });
+
+    input.registerKeyHandler(sf::Keyboard::LControl, [&](){
+        // TODO: trigger special power
+    });
+
     while (renderWindow.isOpen())
     {
         input.handleEvents(renderWindow);
