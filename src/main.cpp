@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "input.h"
+#include "wavecontroller.h"
 
 int main()
 {
@@ -42,6 +43,8 @@ int main()
         // TODO: trigger special power
     });
 
+    WaveController waveController;
+
     while (renderWindow.isOpen())
     {
         input.handleEvents(renderWindow);
@@ -52,8 +55,10 @@ int main()
         accumulator += frameTime;
 
         sf::Vector2f movement;
-        while (accumulator >= dt)
+        while (accumulator >= dt) {
             accumulator -= dt;
+            waveController.update(dt);
+        }
 
         renderWindow.clear();
         renderWindow.display();
