@@ -27,12 +27,16 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/animatedsprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/animation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/largecluster.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/mediumcluster.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/smallcluster.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ship.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/triangleship.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/rectangleship.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/circleship.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/wavecontroller.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
