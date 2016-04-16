@@ -5,6 +5,8 @@
 #include "input.h"
 #include "wavecontroller.h"
 
+#include "player.h"
+
 int main()
 {
     sf::RenderWindow renderWindow(sf::VideoMode(800u, 600u), "ld35");
@@ -13,6 +15,9 @@ int main()
     const float dt = 0.01f;
     float previousUpdateTime = deltaClock.getElapsedTime().asSeconds();
     float accumulator = 0.f;
+
+    Player player(50, 50);
+    player.setPosition(800 / 2, 600 / 2);
 
     Input input;
 
@@ -27,20 +32,20 @@ int main()
         // TODO: rotate spaceship right
     });
 
-    input.registerKeyHandler(sf::Keyboard::Up, [&](sf::Event e){
-        // TODO: increase spaceship speed
+    input.registerKeyHandler(sf::Keyboard::W, [&](sf::Event e){
+        player.accelerate();
     });
 
-    input.registerKeyHandler(sf::Keyboard::Down, [&](sf::Event e){
-        // TODO: decrease spaceship speed
+    input.registerKeyHandler(sf::Keyboard::S, [&](sf::Event e){
+        player.deacelerate();
     });
 
     input.registerKeyHandler(sf::Keyboard::Space, [&](sf::Event e){
-        // TODO: fire
+        player.attack();
     });
 
     input.registerKeyHandler(sf::Keyboard::LControl, [&](sf::Event e){
-        // TODO: trigger special power
+        player.altAttack();
     });
 
     WaveController waveController(renderWindow);
@@ -58,10 +63,14 @@ int main()
         while (accumulator >= dt) {
             accumulator -= dt;
             waveController.update(dt);
+            player.update(dt);
         }
 
         renderWindow.clear();
+
         waveController.draw();
+        renderWindow.draw(player);
+
         renderWindow.display();
     }
 
