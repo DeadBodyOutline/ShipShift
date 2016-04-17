@@ -11,6 +11,7 @@ public:
     void update(sf::Time delta = sf::Time::Zero);
     // TODO: limit maxSpeed and maxforce
     void seek(sf::Vector2f target, float weight = 1.f);
+    void keepDistance(sf::Vector2f target, float distance, float weight = 1.f);
     void wander(float dt, sf::Vector2f wanderTopLeft, sf::Vector2f wanderBottomRight, float weight = 1.f);
     void applyForce(sf::Vector2f force, float weight = 1.f);
     void setMaxSpeed(float maxSpeed) { m_maxSpeed = maxSpeed; }

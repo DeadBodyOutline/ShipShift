@@ -4,6 +4,7 @@
 #include <random>
 
 #include "mediumcluster.h"
+#include "smallcluster.h"
 
 WaveController::WaveController(sf::RenderWindow &renderWindow, Player &player)
     : m_renderWindow(renderWindow)
@@ -44,8 +45,7 @@ void WaveController::spawnCluster()
     if (m_currentWave == 1) {
         spawnMediumEnemyCluster();
     } else if (m_currentWave == 2) {
-        // TODO: spawn second wave, small enemies that shot bullets from all directions
-        // to fight with the circle ship
+        spawnSmallEnemyCluster();
     } else if (m_currentWave == 3) {
         // TODO: spawn third wave, large enemies that shot big lasers
         // to fight with the square ship
@@ -68,6 +68,13 @@ void WaveController::spawnCluster()
 void WaveController::spawnMediumEnemyCluster()
 {
     MediumCluster *cluster = new MediumCluster(m_renderWindow, m_player);
+    cluster->spawn();
+    m_clusters.push_back(cluster);
+}
+
+void WaveController::spawnSmallEnemyCluster()
+{
+    SmallCluster *cluster = new SmallCluster(m_renderWindow, m_player);
     cluster->spawn();
     m_clusters.push_back(cluster);
 }

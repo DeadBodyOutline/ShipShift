@@ -8,7 +8,7 @@ class SmallCluster : public Cluster
 {
 public:
     SmallCluster(sf::RenderWindow &renderWindow, Player &player);
-    virtual void update(float dt) = 0;
+    virtual void update(float dt);
     virtual void spawn();
 };
 

@@ -31,6 +31,21 @@ void Boid::seek(sf::Vector2f target, float weight)
     applyForce(steer, weight);
 }
 
+void Boid::keepDistance(sf::Vector2f target, float distance, float weight)
+{
+    sf::Vector2f desired = target - m_ship->getPosition();
+    float toDist = thor::length(desired);
+    if (std::fabs(toDist) < distance)
+        desired = m_ship->getPosition() + sf::Vector2f(-desired.y, desired.x) - target;
+
+    desired = thor::unitVector(desired);
+    desired = desired * m_maxSpeed;
+    desired = truncate(desired, m_maxSpeed);
+
+    sf::Vector2f steer = desired - m_boidVelocity;
+    applyForce(steer, weight);
+}
+
 void Boid::wander(float dt, sf::Vector2f wanderTopLeft, sf::Vector2f wanderBottomRight, float weight)
 {
     if (m_wanderTime <= 0)

@@ -14,6 +14,7 @@ public:
     void draw();
     void spawnCluster();
     void spawnMediumEnemyCluster();
+    void spawnSmallEnemyCluster();
     unsigned int currentWave() const { return m_currentWave; }
 
 private:
