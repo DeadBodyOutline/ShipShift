@@ -1,6 +1,8 @@
 #include "mediumenemy.h"
 
 #include "scene.h"
+#include "laserprojectile.h"
+#include "stuffmath.h"
 
 MediumEnemy::MediumEnemy(int width, int height)
     : Boid(width, height)
@@ -25,7 +27,6 @@ MediumEnemy::MediumEnemy(int width, int height)
 
 void MediumEnemy::attack()
 {
-/*
     LaserProjectile *projectile = new LaserProjectile();
     projectile->setColor(outlineColor());
 
@@ -40,7 +41,6 @@ void MediumEnemy::attack()
     projectile->setPosition(position() + displacement);
 
     Scene::instance()->addProjectile(projectile);
-    */
 }
 
 void MediumEnemy::altAttack()

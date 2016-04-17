@@ -69,6 +69,7 @@ void WaveController::spawnMediumEnemyCluster()
     std::uniform_int_distribution<> hDis(0, size.y);
     std::uniform_real_distribution<> wanderDis(2.f, 5.f);
     std::uniform_real_distribution<> spawnDis(20.f, 300.f);
+    std::uniform_real_distribution<> fireDis(2.f, 5.f);
 
     for (int i = 0; i < 10; ++i) {
         MediumEnemy *enemy = new MediumEnemy(20, 20);
@@ -85,6 +86,7 @@ void WaveController::spawnMediumEnemyCluster()
         enemy->setMaxSpeed(0.5f);
         enemy->setMaxAcceleration(0.01f);
         enemy->setWanderTime(wanderDis(gen));
+        enemy->setFireTime(fireDis(gen));
         scene->addShip(static_cast<Ship *>(enemy));
     }
 }
@@ -100,7 +102,7 @@ void WaveController::spawnSmallEnemyCluster()
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> wDis(0, size.x);
     std::uniform_int_distribution<> hDis(0, size.y);
-    std::uniform_real_distribution<> wanderDis(2.f, 5.f);
+    std::uniform_real_distribution<> wanderDis(4.f, 6.f);
     // every enemy will spawn offscreen
     float spawnDistance = std::max<float>(size.x, size.y) + 10.f;
 
