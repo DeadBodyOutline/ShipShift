@@ -37,10 +37,13 @@ void Player::attack()
     m_currentShip->attack();
 }
 
-void Player::altAttack()
+void Player::altAttack(sf::Vector2i target)
 {
     if (!m_currentShip)
         return;
+
+    if (m_shipType == ShipType::Triangle and target != sf::Vector2i())
+        dynamic_cast<TriangleShip *>(m_currentShip)->setTarget(target);
 
     m_currentShip->altAttack();
 }

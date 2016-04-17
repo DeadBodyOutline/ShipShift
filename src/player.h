@@ -25,7 +25,7 @@ public:
     ~Player();
 
     void attack();
-    void altAttack();
+    void altAttack(sf::Vector2i target = sf::Vector2i());
 
     void accelerate();
     void deacelerate();

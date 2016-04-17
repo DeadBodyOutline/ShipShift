@@ -48,6 +48,9 @@ int main()
     });
 
     input.registerKeyHandler(sf::Keyboard::LControl, [&](sf::Event e){
+        // we can set a target like this:
+        // player.altAttack(sf::Mouse::getPosition());
+        // Player should check if the currentShip can set a target
         player.altAttack();
     });
 

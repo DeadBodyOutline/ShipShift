@@ -41,6 +41,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/player.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/projectile.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/laserprojectile.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/guidedprojectile.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
