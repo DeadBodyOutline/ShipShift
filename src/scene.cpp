@@ -30,11 +30,13 @@ void Scene::update(float dt)
 
 void Scene::draw()
 {
-    m_game->draw(*m_player);
-    for (Ship *ship : m_ships)
-        m_game->draw(*ship);
     for (Projectile *projectile : m_projectiles)
         m_game->draw(*projectile);
+
+    for (Ship *ship : m_ships)
+        m_game->draw(*ship);
+
+    m_game->draw(*m_player);
 }
 
 void Scene::addShip(Ship *ship)
