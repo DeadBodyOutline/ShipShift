@@ -21,14 +21,26 @@ MediumEnemy::MediumEnemy(int width, int height)
     shape->setPoint(3, sf::Vector2f(m_width / 2, m_height / 2));
 
     m_ship->setOrigin(width / 2, -height / 2);
-
-    m_player = Scene::instance()->player();
-    m_game = Scene::instance()->game();
 }
 
 void MediumEnemy::attack()
 {
+/*
+    LaserProjectile *projectile = new LaserProjectile();
+    projectile->setColor(outlineColor());
 
+    projectile->setRotation(rotation());
+
+    float angle = r2d(rotation() - 90);
+
+    sf::Vector2f displacement;
+    displacement.x = cos(angle) * height() / 2;
+    displacement.y = sin(angle) * height() / 2;
+
+    projectile->setPosition(position() + displacement);
+
+    Scene::instance()->addProjectile(projectile);
+    */
 }
 
 void MediumEnemy::altAttack()

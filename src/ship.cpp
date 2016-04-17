@@ -1,5 +1,9 @@
 #include "ship.h"
 
+#include <cmath>
+
+#include "stuffmath.h"
+
 Ship::Ship(int width, int height)
     : sf::Drawable()
     , m_ship(nullptr)
@@ -9,6 +13,7 @@ Ship::Ship(int width, int height)
     , m_maxVelocity(100.f)
     , m_velModifier(1.f)
     , m_visible(true)
+    , m_angle(0.f)
 {
 }
 
@@ -210,4 +215,18 @@ void Ship::draw(sf::RenderTarget& target, sf::RenderStates states) const
         return;
 
     target.draw(*m_ship);
+}
+
+void Ship::rotate(sf::Vector2f target)
+{
+    sf::Vector2f v = target - position();
+    m_angle = atan2f(v.y, v.x);
+    float angle = d2r(m_angle);
+
+    setRotation(angle + 90);
+}
+
+void Ship::rotate(int x, int y)
+{
+    rotate(sf::Vector2f(x, y));
 }

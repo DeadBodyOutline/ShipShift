@@ -3,6 +3,7 @@
 #include <Thor/Vectors/VectorAlgebra2D.hpp>
 #include <cmath>
 #include "stuffmath.h"
+#include "scene.h"
 
 Boid::Boid(int width, int height)
     : Ship(width, height)
@@ -13,6 +14,8 @@ Boid::Boid(int width, int height)
     , m_fireTime(0.f)
     , m_fireTimeAcc(0.f)
 {
+    m_player = Scene::instance()->player();
+    m_game = Scene::instance()->game();
 }
 
 void Boid::update(sf::Time delta)
@@ -20,6 +23,8 @@ void Boid::update(sf::Time delta)
     m_boidVelocity += m_boidAcceleration;
     m_ship->setPosition(m_ship->getPosition() + m_boidVelocity);
     m_boidAcceleration *= 0.f;
+
+    rotate(m_player->position());
 
     if (m_fireTime <= 0.f)
         return;

@@ -7,7 +7,6 @@ Player::Player(int width, int height)
     : sf::Drawable()
     , m_currentShip(nullptr)
     , m_step(10.f)
-    , m_angle(0.f)
 {
     // eeehhhhhhhhh....
     TriangleShip *m_triangleShip = new TriangleShip(width, height);
@@ -68,12 +67,7 @@ void Player::deacelerate()
 
 void Player::rotate(int x, int y)
 {
-    sf::Vector2f v = sf::Vector2f(x, y) - position();
-
-    m_angle = atan2f(v.y, v.x);
-    float angle = d2r(m_angle);
-
-    m_currentShip->setRotation(angle + 90);
+    m_currentShip->rotate(x, y);
 }
 
 void Player::changeShipType(ShipType type)
@@ -140,8 +134,8 @@ void Player::update(sf::Time delta)
     for (auto ship : m_ships) {
         if (ship.second->visible()) {
 
-            float newX = cos(m_angle) * m_velocity * delta.asSeconds();
-            float newY = sin(m_angle) * m_velocity * delta.asSeconds();
+            float newX = cos(m_currentShip->angle()) * m_velocity * delta.asSeconds();
+            float newY = sin(m_currentShip->angle()) * m_velocity * delta.asSeconds();
 
             ship.second->move(newX, newY);
         }

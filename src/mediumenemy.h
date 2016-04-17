@@ -14,9 +14,6 @@ public:
     virtual void altAttack();
 
     virtual void update(sf::Time delta = sf::Time::Zero);
-protected:
-    Player *m_player;
-    sf::RenderWindow *m_game;
 };
 
 #endif // __MEDIUMENEMY_H__

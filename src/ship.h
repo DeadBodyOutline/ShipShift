@@ -40,6 +40,8 @@ public:
     virtual void setTransparency(float value);
 
     virtual void move(const float x, const float y);
+    void rotate(int x, int y);
+    void rotate(sf::Vector2f target);
 
     virtual void setMaxVelocity(float maxVelocity);
     virtual float maxVelocity() const;
@@ -50,6 +52,8 @@ public:
     virtual bool visible() const;
 
     virtual void update(sf::Time delta = sf::Time::Zero);
+
+    float angle() const { return m_angle; }
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -65,6 +69,7 @@ protected:
     float m_velModifier;
 
     bool m_visible;
+    float m_angle;
 };
 
 #endif // __SHIP_H__

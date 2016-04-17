@@ -12,9 +12,6 @@ SmallEnemy::SmallEnemy(int width, int height)
     setOutlineColor(255, 255, 0);
 
     m_ship->setOrigin(width / 2, -width / 2);
-
-    m_player = Scene::instance()->player();
-    m_game = Scene::instance()->game();
 }
 
 void SmallEnemy::attack()

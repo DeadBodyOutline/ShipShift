@@ -2,6 +2,7 @@
 #define __BOID_H__
 
 #include "ship.h"
+#include "player.h"
 
 class Boid : public Ship
 {
@@ -29,6 +30,8 @@ protected:
     float m_wanderTimeAcc;
     float m_fireTime;
     float m_fireTimeAcc;
+    Player *m_player;
+    sf::RenderWindow *m_game;
 };
 
 #endif // __BOID_H__

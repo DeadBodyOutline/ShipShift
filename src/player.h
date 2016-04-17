@@ -29,7 +29,6 @@ public:
 
     void accelerate();
     void deacelerate();
-
     void rotate(int x, int y);
 
     void changeShipType(ShipType type);
@@ -54,8 +53,6 @@ private:
 
     float m_velocity;
     float m_step;
-
-    float m_angle;
 };
 
 #endif // __PLAYER_H__
