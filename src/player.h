@@ -29,6 +29,8 @@ public:
     void accelerate();
     void deacelerate();
 
+    void rotate(int x, int y);
+
     void changeShipType(ShipType type);
     ShipType shipType();
 

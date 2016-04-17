@@ -48,6 +48,10 @@ int main()
         player.altAttack();
     });
 
+    input.registerHandler(sf::Event::MouseMoved, [&](sf::Event e){
+        player.rotate(e.mouseMove.x, e.mouseMove.y);
+    });
+
     /// XXX just to quick test ship changing
     input.registerKeyHandler(sf::Keyboard::Num1, [&](sf::Event e){
         player.changeShipType(Player::ShipType::Triangle);

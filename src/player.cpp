@@ -52,13 +52,27 @@ void Player::deacelerate()
     m_velocity =  std::max(velocity, -m_currentShip->maxVelocity());
 }
 
+void Player::rotate(int x, int y)
+{
+    sf::Vector2f v = position() - sf::Vector2f(x, y);
+
+    float angle = atan2f(v.y, v.x);
+    angle *= 180.f / 3.14159265359;
+
+    m_currentShip->setRotation(angle - 90);
+}
+
 void Player::changeShipType(ShipType type)
 {
     m_shipType = type;
 
     sf::Vector2f currPos = sf::Vector2f();
-    if (m_currentShip)
+    float currRot = 0;
+
+    if (m_currentShip) {
         currPos = position();
+        currRot = m_currentShip->rotation();
+    }
 
     switch (type) {
         case ShipType::Triangle:
@@ -76,6 +90,7 @@ void Player::changeShipType(ShipType type)
 
     if (currPos != sf::Vector2f()) {
         m_currentShip->setPosition(currPos);
+        m_currentShip->setRotation(currRot);
         revaluateVelocity();
     }
 }
