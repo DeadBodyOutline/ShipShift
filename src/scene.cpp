@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "boid.h"
 
 Scene::Scene()
 {
@@ -24,10 +25,22 @@ void Scene::update(float dt)
     checkCollisions();
 
     sf::Time delta = sf::seconds(dt);
+
     m_waveController.update(dt);
     m_player->update(delta);
-    for (Ship *ship : m_ships)
-        ship->update(delta);
+
+    for (auto i = m_ships.begin(); i != m_ships.end(); ) {
+        (*i)->update(delta);
+
+        Boid *boid = dynamic_cast<Boid *>(*i);
+        if (!boid)
+            continue;
+
+        if (boid->markedForDeletion())
+            i = m_ships.erase(i);
+        else
+            ++i;
+    }
 
     for (auto i = m_projectiles.begin(); i != m_projectiles.end(); ) {
         (*i)->update(delta);
@@ -68,18 +81,31 @@ void Scene::addTimedEvent(TimedEvent *event)
     m_events.push_back(event);
 }
 
-#include <iostream>
+// someday, implement a quadtree (aabb) to achieve this ;)
 void Scene::checkCollisions()
 {
-    // someday, implement a quadtree (aabb) to achieve this ;)
-
+    bool collide = false;
     for (auto ship: m_ships) {
-        bool collide = m_player->collideWith(ship);
-        if (collide)
-            std::cout
-                << "YO: "
-                << collide
-                << std::endl;
+        collide = m_player->collideWith(ship);
+
+        if (collide) {
+            Boid *boid = dynamic_cast<Boid *>(ship);
+            if (!boid)
+                continue;
+
+            boid->markForDeletion();
+            m_player->receiveDamage(boid->damage());
+        }
     }
 
+    for (auto projectile: m_projectiles) {
+        if (projectile->playerProjectile())
+            continue;
+
+        collide = m_player->collideWith(projectile);
+        if (collide) {
+            projectile->markForDeletion();
+            m_player->receiveDamage(projectile->damage());
+        }
+    }
 }
