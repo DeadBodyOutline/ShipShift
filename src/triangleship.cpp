@@ -1,6 +1,9 @@
 #include "triangleship.h"
 #include "stuffmath.h"
 
+#include "laserprojectile.h"
+#include "scene.h"
+
 TriangleShip::TriangleShip(int width, int height)
     : Ship(width, height)
 {
@@ -20,11 +23,6 @@ TriangleShip::TriangleShip(int width, int height)
     setMaxVelocity(200.f);
 }
 
-TriangleShip::~TriangleShip()
-{
-    m_projectiles.clear();
-}
-
 void TriangleShip::attack()
 {
     LaserProjectile *projectile = new LaserProjectile();
@@ -39,7 +37,7 @@ void TriangleShip::attack()
 
     projectile->setPosition(position() + displacement);
 
-    m_projectiles.push_back(projectile);
+    Scene::instance()->addProjectile(projectile);
 }
 
 void TriangleShip::altAttack()
@@ -48,22 +46,10 @@ void TriangleShip::altAttack()
 
 void TriangleShip::update(sf::Time delta)
 {
-    for (auto i = m_projectiles.begin(); i != m_projectiles.end(); ) {
-        (*i)->update(delta);
-
-        if ((*i)->markedForDeletion())
-            i = m_projectiles.erase(i);
-        else
-            ++i;
-    }
-
     Ship::update(delta);
 }
 
 void TriangleShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    for (auto projectile : m_projectiles)
-        target.draw(*projectile, states);
-
     Ship::draw(target, states);
 }

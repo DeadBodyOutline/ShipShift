@@ -1,36 +1,27 @@
 #include "wavecontroller.h"
 
+#include <Thor/Vectors/VectorAlgebra2D.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <random>
 
-#include "mediumcluster.h"
-#include "smallcluster.h"
+#include "scene.h"
+#include "mediumenemy.h"
+#include "smallenemy.h"
 
-WaveController::WaveController(sf::RenderWindow &renderWindow, Player &player)
-    : m_renderWindow(renderWindow)
-    , m_player(player)
-    , m_currentWave(0)
+WaveController::WaveController()
+    : m_currentWave(0)
 {
 }
 
 void WaveController::update(float dt)
 {
-    for (auto cluster : m_clusters)
-        cluster->update(dt);
-
     m_timeToNewWave -= dt;
 
-    // TODO activate the size rule when we have some enemy ships :)
-    if (/*!m_clusters.size() || */m_timeToNewWave <= 0.f) {
+    if (m_timeToNewWave <= 0.f) {
         ++m_currentWave;
         spawnCluster();
     }
-}
-
-void WaveController::draw()
-{
-    for (Cluster *cluster : m_clusters)
-        cluster->draw();
 }
 
 void WaveController::spawnCluster()
@@ -67,14 +58,65 @@ void WaveController::spawnCluster()
 
 void WaveController::spawnMediumEnemyCluster()
 {
-    MediumCluster *cluster = new MediumCluster(m_renderWindow, m_player);
-    cluster->spawn();
-    m_clusters.push_back(cluster);
+    Scene *scene = Scene::instance();
+    sf::RenderWindow *game = scene->game();
+    Player *player = scene->player();
+
+    sf::Vector2u size = game->getSize();
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> wDis(0, size.x);
+    std::uniform_int_distribution<> hDis(0, size.y);
+    std::uniform_real_distribution<> wanderDis(2.f, 5.f);
+    std::uniform_real_distribution<> spawnDis(20.f, 300.f);
+
+    for (int i = 0; i < 10; ++i) {
+        MediumEnemy *enemy = new MediumEnemy(20, 20);
+        enemy->setPosition(wDis(gen), hDis(gen));
+        // don't spawn enemies too close to the player
+        float spawnDistance = 200.f + spawnDis(gen);
+        sf::Vector2f desired = player->position() - enemy->position();
+        float toDist = thor::length(desired);
+        if (std::fabs(toDist) < spawnDistance)
+            desired = enemy->position() + sf::Vector2f(-desired.y, desired.x) - player->position();
+        desired = thor::unitVector(desired);
+        desired = desired * spawnDistance;
+        enemy->setPosition(player->position() + desired);
+        enemy->setMaxSpeed(0.5f);
+        enemy->setMaxAcceleration(0.01f);
+        enemy->setWanderTime(wanderDis(gen));
+        scene->addShip(static_cast<Ship *>(enemy));
+    }
 }
 
 void WaveController::spawnSmallEnemyCluster()
 {
-    SmallCluster *cluster = new SmallCluster(m_renderWindow, m_player);
-    cluster->spawn();
-    m_clusters.push_back(cluster);
+    Scene *scene = Scene::instance();
+    sf::RenderWindow *game = scene->game();
+    Player *player = scene->player();
+
+    sf::Vector2u size = game->getSize();
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> wDis(0, size.x);
+    std::uniform_int_distribution<> hDis(0, size.y);
+    std::uniform_real_distribution<> wanderDis(2.f, 5.f);
+    // every enemy will spawn offscreen
+    float spawnDistance = std::max<float>(size.x, size.y) + 10.f;
+
+    for (int i = 0; i < 50; ++i) {
+        SmallEnemy *enemy = new SmallEnemy(7, 7);
+        enemy->setPosition(wDis(gen), hDis(gen));
+        sf::Vector2f desired = player->position() - enemy->position();
+        float toDist = thor::length(desired);
+        if (std::fabs(toDist) < spawnDistance)
+            desired = enemy->position() + sf::Vector2f(-desired.y, desired.x) - player->position();
+        desired = thor::unitVector(desired);
+        desired = desired * spawnDistance;
+        enemy->setPosition(player->position() + desired);
+        enemy->setMaxSpeed(0.8f);
+        enemy->setMaxAcceleration(0.03);
+        enemy->setWanderTime(wanderDis(gen));
+        scene->addShip(static_cast<Ship *>(enemy));
+    }
 }

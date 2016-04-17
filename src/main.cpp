@@ -3,9 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "input.h"
-#include "wavecontroller.h"
-
 #include "player.h"
+#include "scene.h"
 
 int main()
 {
@@ -18,6 +17,10 @@ int main()
 
     Player player(50, 50);
     player.setPosition(800 / 2, 600 / 2);
+
+    Scene *scene = Scene::instance();
+    scene->setPlayer(&player);
+    scene->setGame(&renderWindow);
 
     Input input;
 
@@ -66,8 +69,6 @@ int main()
     });
     ///
 
-    WaveController waveController(renderWindow, player);
-
     while (renderWindow.isOpen())
     {
         input.handleEvents(renderWindow);
@@ -80,15 +81,11 @@ int main()
         sf::Vector2f movement;
         while (accumulator >= dt) {
             accumulator -= dt;
-            waveController.update(dt);
-            player.update(dt);
+            scene->update(dt);
         }
 
         renderWindow.clear();
-
-        waveController.draw();
-        renderWindow.draw(player);
-
+        scene->draw();
         renderWindow.display();
     }
 
