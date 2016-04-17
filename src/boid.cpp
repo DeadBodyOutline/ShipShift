@@ -51,6 +51,5 @@ void Boid::wander(float dt, sf::Vector2f wanderTopLeft, sf::Vector2f wanderBotto
 
 void Boid::applyForce(sf::Vector2f force, float weight)
 {
-    m_boidAcceleration += force * weight;
-    m_boidAcceleration = truncate(m_boidAcceleration, m_maxAcceleration);
+    m_boidAcceleration += truncate(force * weight, m_maxAcceleration);
 }

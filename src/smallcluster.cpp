@@ -1,7 +1,7 @@
 #include "smallcluster.h"
 
-SmallCluster::SmallCluster(sf::RenderWindow &renderWindow)
-    : Cluster(renderWindow)
+SmallCluster::SmallCluster(sf::RenderWindow &renderWindow, Player &player)
+    : Cluster(renderWindow, player)
 {
 }
 

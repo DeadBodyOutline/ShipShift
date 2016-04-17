@@ -1,7 +1,8 @@
 #include "cluster.h"
 
-Cluster::Cluster(sf::RenderWindow &renderWindow)
+Cluster::Cluster(sf::RenderWindow &renderWindow, Player &player)
     : m_renderWindow(renderWindow)
+    , m_player(player)
 {
 }
 

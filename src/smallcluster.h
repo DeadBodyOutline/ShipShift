@@ -2,11 +2,12 @@
 #define __SMALLCLUSTER_H__
 
 #include "cluster.h"
+#include "player.h"
 
 class SmallCluster : public Cluster
 {
 public:
-    SmallCluster(sf::RenderWindow &renderWindow);
+    SmallCluster(sf::RenderWindow &renderWindow, Player &player);
     virtual void update(float dt) = 0;
     virtual void spawn();
 };

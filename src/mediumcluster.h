@@ -5,11 +5,12 @@
 
 #include "cluster.h"
 #include "mediumenemy.h"
+#include "player.h"
 
 class MediumCluster : public Cluster
 {
 public:
-    MediumCluster(sf::RenderWindow &renderWindow);
+    MediumCluster(sf::RenderWindow &renderWindow, Player &player);
     virtual void update(float dt);
     virtual void spawn();
 

@@ -9,7 +9,7 @@
 class WaveController
 {
 public:
-    WaveController(sf::RenderWindow &renderWindow);
+    WaveController(sf::RenderWindow &renderWindow, Player &player);
     void update(float dt);
     void draw();
     void spawnCluster();
@@ -18,6 +18,7 @@ public:
 
 private:
     sf::RenderWindow &m_renderWindow;
+    Player &m_player;
     std::vector<Cluster *> m_clusters;
     unsigned int m_currentWave;
     float m_timeToNewWave;

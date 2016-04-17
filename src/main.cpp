@@ -66,7 +66,7 @@ int main()
     });
     ///
 
-    WaveController waveController(renderWindow);
+    WaveController waveController(renderWindow, player);
 
     while (renderWindow.isOpen())
     {

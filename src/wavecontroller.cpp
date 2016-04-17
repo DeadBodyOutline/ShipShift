@@ -5,8 +5,9 @@
 
 #include "mediumcluster.h"
 
-WaveController::WaveController(sf::RenderWindow &renderWindow)
+WaveController::WaveController(sf::RenderWindow &renderWindow, Player &player)
     : m_renderWindow(renderWindow)
+    , m_player(player)
     , m_currentWave(0)
 {
 }
@@ -66,7 +67,7 @@ void WaveController::spawnCluster()
 
 void WaveController::spawnMediumEnemyCluster()
 {
-    MediumCluster *cluster = new MediumCluster(m_renderWindow);
+    MediumCluster *cluster = new MediumCluster(m_renderWindow, m_player);
     cluster->spawn();
     m_clusters.push_back(cluster);
 }

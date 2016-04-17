@@ -4,11 +4,12 @@
 #include <SFML/Graphics.hpp>
 
 #include "boid.h"
+#include "player.h"
 
 class Cluster
 {
 public:
-    Cluster(sf::RenderWindow &renderWindow);
+    Cluster(sf::RenderWindow &renderWindow, Player &player);
 
     enum ClusterType {
         SmallEnemies,
@@ -22,6 +23,7 @@ public:
 
 protected:
     sf::RenderWindow &m_renderWindow;
+    Player &m_player;
     std::vector<Boid *> m_boids;
 };
 

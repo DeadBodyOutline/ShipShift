@@ -1,7 +1,7 @@
 #include "largecluster.h"
 
-LargeCluster::LargeCluster(sf::RenderWindow &renderWindow)
-    : Cluster(renderWindow)
+LargeCluster::LargeCluster(sf::RenderWindow &renderWindow, Player &player)
+    : Cluster(renderWindow, player)
 {
 }
 
