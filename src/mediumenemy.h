@@ -14,6 +14,9 @@ public:
     virtual void altAttack();
 
     virtual void update(sf::Time delta = sf::Time::Zero);
+
+protected:
+    bool m_firing;
 };
 
 #endif // __MEDIUMENEMY_H__

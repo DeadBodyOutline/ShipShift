@@ -6,6 +6,7 @@
 
 MediumEnemy::MediumEnemy(int width, int height)
     : Boid(width, height)
+    , m_firing(false)
 {
     m_ship = new sf::ConvexShape(4);
 
@@ -23,10 +24,19 @@ MediumEnemy::MediumEnemy(int width, int height)
     shape->setPoint(3, sf::Vector2f(m_width / 2, m_height / 2));
 
     m_ship->setOrigin(width / 2, -height / 2);
+
+    TimedEvent *startFiring = new TimedEvent(3.f);
+    startFiring->onTrigger([&]() {
+        m_firing = true;
+    });
+
+    Scene::instance()->addTimedEvent(startFiring);
 }
 
 void MediumEnemy::attack()
 {
+    if (!m_firing)
+        return;
     LaserProjectile *projectile = new LaserProjectile();
     projectile->setColor(outlineColor());
 
