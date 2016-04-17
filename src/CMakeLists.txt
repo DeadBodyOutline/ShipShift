@@ -43,6 +43,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/wavecontroller.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/player.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/projectile.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/laserprojectile.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
