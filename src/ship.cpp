@@ -8,6 +8,7 @@ Ship::Ship(int width, int height)
     , m_hull(100.f)
     , m_maxVelocity(100.f)
     , m_velModifier(1.f)
+    , m_visible(true)
 {
 }
 
@@ -186,14 +187,26 @@ float Ship::velModifier() const
     return m_velModifier;
 }
 
+void Ship::setVisible(bool visible)
+{
+    if (visible == m_visible)
+        return;
+
+    m_visible = visible;
+}
+
+bool Ship::visible() const
+{
+    return m_visible;
+}
+
 void Ship::update(sf::Time delta)
 {
-
 }
 
 void Ship::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if (!m_ship)
+    if (!m_ship || !m_visible)
         return;
 
     target.draw(*m_ship);

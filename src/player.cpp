@@ -9,9 +9,18 @@ Player::Player(int width, int height)
     , m_step(10.f)
     , m_angle(0.f)
 {
-    m_triangleShip = std::make_shared<TriangleShip>(width, height);
-    m_rectangleShip = std::make_shared<RectangleShip>(width, height);
-    m_circleShip = std::make_shared<CircleShip>(width / 2);
+    // eeehhhhhhhhh....
+    TriangleShip *m_triangleShip = new TriangleShip(width, height);
+    m_triangleShip->setVisible(false);
+    m_ships.insert(std::pair<ShipType, Ship *>(ShipType::Triangle, m_triangleShip));
+
+    RectangleShip *m_rectangleShip = new RectangleShip(width, height);
+    m_rectangleShip->setVisible(false);
+    m_ships.insert(std::pair<ShipType, Ship *>(ShipType::Rectangle, m_rectangleShip));
+
+    CircleShip *m_circleShip = new CircleShip(width / 2);
+    m_circleShip->setVisible(false);
+    m_ships.insert(std::pair<ShipType, Ship *>(ShipType::Circle, m_circleShip));
 
     changeShipType(ShipType::Triangle);
 }
@@ -74,27 +83,18 @@ void Player::changeShipType(ShipType type)
     if (m_currentShip) {
         currPos = position();
         currRot = m_currentShip->rotation();
+        m_currentShip->setVisible(false);
     }
 
-    switch (type) {
-        case ShipType::Triangle:
-            m_currentShip = m_triangleShip;
-            break;
-        case ShipType::Rectangle:
-            m_currentShip = m_rectangleShip;
-            break;
-        case ShipType::Circle:
-            m_currentShip = m_circleShip;
-            break;
-        default:
-            break;
-    }
+    m_currentShip = m_ships[type];
 
     if (currPos != sf::Vector2f()) {
         m_currentShip->setPosition(currPos);
         m_currentShip->setRotation(currRot);
         revaluateVelocity();
     }
+
+    m_currentShip->setVisible(true);
 }
 
 Player::ShipType Player::shipType()
@@ -134,11 +134,16 @@ void Player::update(sf::Time delta)
     if (!m_currentShip)
         return;
 
-    float newX = cos(m_angle) * m_velocity * delta.asSeconds();
-    float newY = sin(m_angle) * m_velocity * delta.asSeconds();
+    for (auto ship : m_ships) {
+        if (ship.second->visible()) {
 
-    m_currentShip->move(newX, newY);
-    m_currentShip->update(delta);
+            float newX = cos(m_angle) * m_velocity * delta.asSeconds();
+            float newY = sin(m_angle) * m_velocity * delta.asSeconds();
+
+            ship.second->move(newX, newY);
+        }
+        ship.second->update(delta);
+    }
 }
 
 // limit the velocity when shapeshifting the ship
@@ -154,5 +159,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
     if (!m_currentShip)
         return;
 
-    target.draw(*m_currentShip);
+    for (auto ship : m_ships) {
+        target.draw(*ship.second);
+    }
 }

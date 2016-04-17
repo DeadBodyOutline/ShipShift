@@ -46,6 +46,9 @@ public:
     virtual void setVelModifier(float velModifier);
     virtual float velModifier() const;
 
+    virtual void setVisible(bool visible);
+    virtual bool visible() const;
+
     virtual void update(sf::Time delta = sf::Time::Zero);
 
 protected:
@@ -60,6 +63,8 @@ protected:
 
     float m_maxVelocity;
     float m_velModifier;
+
+    bool m_visible;
 };
 
 #endif // __SHIP_H__

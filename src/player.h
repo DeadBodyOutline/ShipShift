@@ -5,6 +5,7 @@
 #include <SFML/Graphics/ConvexShape.hpp>
 
 #include <memory>
+#include <map>
 
 #include "ship.h"
 #include "triangleship.h"
@@ -46,10 +47,8 @@ private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    std::shared_ptr<Ship> m_currentShip;
-    std::shared_ptr<TriangleShip> m_triangleShip;
-    std::shared_ptr<RectangleShip> m_rectangleShip;
-    std::shared_ptr<CircleShip> m_circleShip;
+    Ship *m_currentShip;
+    std::map<ShipType, Ship *> m_ships;
 
     ShipType m_shipType;
 
