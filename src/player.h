@@ -41,6 +41,8 @@ public:
     void update(float delta);
     void update(sf::Time delta = sf::Time::Zero);
 
+    bool collideWith(Ship *ship = nullptr);
+
 private:
     void revaluateVelocity();
 

@@ -230,3 +230,12 @@ void Ship::rotate(int x, int y)
 {
     rotate(sf::Vector2f(x, y));
 }
+
+bool Ship::collideWith(Ship *ship)
+{
+    if (!ship)
+        return false;
+
+    return m_ship->getGlobalBounds().intersects(
+            ship->m_ship->getGlobalBounds());
+}

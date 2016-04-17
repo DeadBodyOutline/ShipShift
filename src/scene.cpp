@@ -20,6 +20,9 @@ void Scene::update(float dt)
         else
             ++i;
     }
+
+    checkCollisions();
+
     sf::Time delta = sf::seconds(dt);
     m_waveController.update(dt);
     m_player->update(delta);
@@ -63,4 +66,20 @@ void Scene::addProjectile(Projectile *projectile)
 void Scene::addTimedEvent(TimedEvent *event)
 {
     m_events.push_back(event);
+}
+
+#include <iostream>
+void Scene::checkCollisions()
+{
+    // someday, implement a quadtree (aabb) to achieve this ;)
+
+    for (auto ship: m_ships) {
+        bool collide = m_player->collideWith(ship);
+        if (collide)
+            std::cout
+                << "YO: "
+                << collide
+                << std::endl;
+    }
+
 }

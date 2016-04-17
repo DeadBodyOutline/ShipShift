@@ -35,6 +35,9 @@ protected:
     std::vector<Ship *> m_ships;
     std::vector<Projectile *> m_projectiles;
     std::vector<TimedEvent *> m_events;
+
+private:
+    void checkCollisions();
 };
 
 #endif // __SCENE_H__

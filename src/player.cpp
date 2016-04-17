@@ -143,6 +143,14 @@ void Player::update(sf::Time delta)
     }
 }
 
+bool Player::collideWith(Ship *ship)
+{
+    if (!ship)
+        return false;
+
+    return m_currentShip->collideWith(ship);
+}
+
 // limit the velocity when shapeshifting the ship
 void Player::revaluateVelocity()
 {
