@@ -55,7 +55,8 @@ public:
 
     float angle() const { return m_angle; }
 
-    virtual bool collideWith(Ship *ship = nullptr);
+    virtual sf::Shape *shape();
+    virtual bool collideWith(sf::Shape *shape = nullptr);
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -64,8 +65,6 @@ protected:
 
     int m_width;
     int m_height;
-
-    float m_hull;
 
     float m_maxVelocity;
     float m_velModifier;

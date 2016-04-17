@@ -11,6 +11,7 @@
 #include "triangleship.h"
 #include "rectangleship.h"
 #include "circleship.h"
+#include "projectile.h"
 
 class Player : public sf::Drawable
 {
@@ -34,6 +35,9 @@ public:
     void changeShipType(ShipType type);
     ShipType shipType();
 
+    void receiveDamage(float damage);
+    float health() const;
+
     void setPosition(int x, int y);
     void setPosition(sf::Vector2f point);
     sf::Vector2f position() const;
@@ -42,6 +46,7 @@ public:
     void update(sf::Time delta = sf::Time::Zero);
 
     bool collideWith(Ship *ship = nullptr);
+    bool collideWith(Projectile *projectile = nullptr);
 
 private:
     void revaluateVelocity();
@@ -55,6 +60,8 @@ private:
 
     float m_velocity;
     float m_step;
+
+    float m_hull;
 };
 
 #endif // __PLAYER_H__

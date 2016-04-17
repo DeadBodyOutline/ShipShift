@@ -9,7 +9,6 @@ Ship::Ship(int width, int height)
     , m_ship(nullptr)
     , m_width(width)
     , m_height(height)
-    , m_hull(100.f)
     , m_maxVelocity(100.f)
     , m_velModifier(1.f)
     , m_visible(true)
@@ -231,11 +230,15 @@ void Ship::rotate(int x, int y)
     rotate(sf::Vector2f(x, y));
 }
 
-bool Ship::collideWith(Ship *ship)
+sf::Shape *Ship::shape()
 {
-    if (!ship)
+    return m_ship;
+}
+
+bool Ship::collideWith(sf::Shape *shape)
+{
+    if (!shape)
         return false;
 
-    return m_ship->getGlobalBounds().intersects(
-            ship->m_ship->getGlobalBounds());
+    return m_ship->getGlobalBounds().intersects(shape->getGlobalBounds());
 }

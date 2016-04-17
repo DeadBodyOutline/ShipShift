@@ -7,6 +7,7 @@ Player::Player(int width, int height)
     : sf::Drawable()
     , m_currentShip(nullptr)
     , m_step(10.f)
+    , m_hull(100.f)
 {
     // eeehhhhhhhhh....
     TriangleShip *m_triangleShip = new TriangleShip(width, height);
@@ -99,6 +100,16 @@ Player::ShipType Player::shipType()
     return m_shipType;
 }
 
+void Player::receiveDamage(float damage)
+{
+    m_hull = std::max(0.f, m_hull - damage);
+}
+
+float Player::health() const
+{
+    return m_hull;
+}
+
 void Player::setPosition(int x, int y)
 {
     sf::Vector2f v(x, y);
@@ -148,7 +159,15 @@ bool Player::collideWith(Ship *ship)
     if (!ship)
         return false;
 
-    return m_currentShip->collideWith(ship);
+    return m_currentShip->collideWith(ship->shape());
+}
+
+bool Player::collideWith(Projectile *projectile)
+{
+    if (!projectile)
+        return false;
+
+    return m_currentShip->collideWith(projectile->shape());
 }
 
 // limit the velocity when shapeshifting the ship
