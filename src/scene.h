@@ -8,6 +8,7 @@
 #include "ship.h"
 #include "projectile.h"
 #include "wavecontroller.h"
+#include "timedevent.h"
 
 class Scene
 {
@@ -21,6 +22,7 @@ public:
     void draw();
     void addShip(Ship *ship);
     void addProjectile(Projectile *projectile);
+    void addTimedEvent(TimedEvent *event);
 
 protected:
     Scene();
@@ -32,6 +34,7 @@ protected:
     WaveController m_waveController;
     std::vector<Ship *> m_ships;
     std::vector<Projectile *> m_projectiles;
+    std::vector<TimedEvent *> m_events;
 };
 
 #endif // __SCENE_H__

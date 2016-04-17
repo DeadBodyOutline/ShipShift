@@ -12,6 +12,14 @@ Scene *Scene::instance()
 
 void Scene::update(float dt)
 {
+    for (auto i = m_events.begin(); i != m_events.end(); ) {
+        (*i)->update(dt);
+
+        if ((*i)->finished())
+            i = m_events.erase(i);
+        else
+            ++i;
+    }
     sf::Time delta = sf::seconds(dt);
     m_waveController.update(dt);
     m_player->update(delta);
@@ -37,6 +45,9 @@ void Scene::draw()
         m_game->draw(*ship);
 
     m_game->draw(*m_player);
+
+    for (TimedEvent *event : m_events)
+        m_game->draw(*event);
 }
 
 void Scene::addShip(Ship *ship)
@@ -47,4 +58,9 @@ void Scene::addShip(Ship *ship)
 void Scene::addProjectile(Projectile *projectile)
 {
     m_projectiles.push_back(projectile);
+}
+
+void Scene::addTimedEvent(TimedEvent *event)
+{
+    m_events.push_back(event);
 }
