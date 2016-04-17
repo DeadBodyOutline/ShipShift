@@ -1,6 +1,8 @@
 #include "smallenemy.h"
 
 #include "scene.h"
+#include "circleprojectile.h"
+#include "stuffmath.h"
 
 SmallEnemy::SmallEnemy(int width, int height)
     : Boid(width, height)
@@ -16,7 +18,20 @@ SmallEnemy::SmallEnemy(int width, int height)
 
 void SmallEnemy::attack()
 {
+    CircleProjectile *projectile = new CircleProjectile();
+    projectile->setColor(outlineColor());
 
+    projectile->setRotation(rotation());
+
+    float angle = r2d(rotation() - 90);
+
+    sf::Vector2f displacement;
+    displacement.x = cos(angle) * height() / 2;
+    displacement.y = sin(angle) * height() / 2;
+
+    projectile->setPosition(position() + displacement);
+
+    Scene::instance()->addProjectile(projectile);
 }
 
 void SmallEnemy::altAttack()

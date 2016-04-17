@@ -27,6 +27,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/animatedsprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/animation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/boid.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/circleprojectile.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/mediumenemy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/smallenemy.cpp
