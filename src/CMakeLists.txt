@@ -42,6 +42,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/circleship.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/wavecontroller.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/player.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/projectile.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
