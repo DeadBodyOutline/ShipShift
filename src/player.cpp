@@ -6,6 +6,7 @@ Player::Player(int width, int height)
     : sf::Drawable()
     , m_currentShip(nullptr)
     , m_step(10.f)
+    , m_angle(0.f)
 {
     m_triangleShip = std::make_shared<TriangleShip>(width, height);
     m_rectangleShip = std::make_shared<RectangleShip>(width, height);
@@ -54,12 +55,12 @@ void Player::deacelerate()
 
 void Player::rotate(int x, int y)
 {
-    sf::Vector2f v = position() - sf::Vector2f(x, y);
+    sf::Vector2f v = sf::Vector2f(x, y) - position();
 
-    float angle = atan2f(v.y, v.x);
-    angle *= 180.f / 3.14159265359;
+    m_angle = atan2f(v.y, v.x);
+    float angle = m_angle * 180.f / 3.14159265359f;
 
-    m_currentShip->setRotation(angle - 90);
+    m_currentShip->setRotation(angle + 90);
 }
 
 void Player::changeShipType(ShipType type)
@@ -132,12 +133,10 @@ void Player::update(sf::Time delta)
     if (!m_currentShip)
         return;
 
-    sf::Vector2f newPos(0.f, 0.f);
-    newPos.y -= m_velocity; // TODO use sin/cos to determinate final vel
+    float newX = cos(m_angle) * m_velocity * delta.asSeconds();
+    float newY = sin(m_angle) * m_velocity * delta.asSeconds();
 
-    newPos *= delta.asSeconds();
-    m_currentShip->move(newPos.x, newPos.y);
-
+    m_currentShip->move(newX, newY);
     m_currentShip->update(delta);
 }
 
