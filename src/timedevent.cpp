@@ -9,6 +9,7 @@ TimedEvent::TimedEvent(float triggerTime, float duration)
     , m_onTriggered([](){})
     , m_onRun([](float){})
     , m_onFinished([](){})
+    , m_onDraw([](sf::RenderTarget&, sf::RenderStates){})
 {
 }
 
@@ -44,4 +45,14 @@ void TimedEvent::run(std::function<void(float)> handler)
 void TimedEvent::onFinish(std::function<void()> handler)
 {
     m_onFinished = handler;
+}
+
+void TimedEvent::onDraw(std::function<void(sf::RenderTarget&, sf::RenderStates)> handler)
+{
+    m_onDraw = handler;
+}
+
+void TimedEvent::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    m_onDraw(target, states);
 }
