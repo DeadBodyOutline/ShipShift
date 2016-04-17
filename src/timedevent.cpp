@@ -28,7 +28,8 @@ void TimedEvent::update(float dt)
             m_running = false;
             m_finished = true;
             m_onFinished();
-        }
+        } else
+            m_onRun(dt);
     }
 }
 
