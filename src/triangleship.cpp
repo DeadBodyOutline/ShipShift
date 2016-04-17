@@ -1,7 +1,6 @@
 #include "triangleship.h"
 #include "stuffmath.h"
 
-//#include "projectile.h"
 #include "laserprojectile.h"
 #include "guidedprojectile.h"
 #include "scene.h"
@@ -33,6 +32,7 @@ TriangleShip::TriangleShip(int width, int height)
 void TriangleShip::attack()
 {
     LaserProjectile *projectile = new LaserProjectile();
+    projectile->setPlayerProjectile(true);
     projectile->setColor(outlineColor());
     projectile->setRotation(rotation());
 
@@ -60,6 +60,7 @@ void TriangleShip::altAttack()
     m_canShootAltAttack = false;
 
     GuidedProjectile *projectile = new GuidedProjectile();
+    projectile->setPlayerProjectile(true);
     projectile->setColor(outlineColor());
     projectile->setRotation(rotation());
 

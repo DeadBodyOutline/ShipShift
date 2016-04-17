@@ -9,7 +9,8 @@ Projectile::Projectile(int width, int height)
     , m_damage(10.f)
     , m_liveness(2.f)
     , m_livenessCounter(0.f)
-    , m_markForDeletion(false)
+    , m_markedForDeletion(false)
+    , m_playerProjectile(false)
 {
 }
 
@@ -138,25 +139,53 @@ void Projectile::move(const float x, const float y)
 }
 
 
+void Projectile::markForDeletion()
+{
+    m_markedForDeletion = true;
+}
+
 bool Projectile::markedForDeletion() const
 {
-    return m_markForDeletion;
+    return m_markedForDeletion;
+}
+
+void Projectile::setPlayerProjectile(bool playerProjectile)
+{
+    m_playerProjectile = playerProjectile;
+}
+
+bool Projectile::playerProjectile()
+{
+    return m_playerProjectile;
+}
+
+float Projectile::damage() const
+{
+    return m_damage;
 }
 
 void Projectile::update(sf::Time delta)
 {
+    if (m_markedForDeletion)
+        return;
+
     m_livenessCounter += delta.asSeconds();
 
     if (m_livenessCounter >= m_liveness) {
-        m_markForDeletion = true;
+        m_markedForDeletion = true;
         m_livenessCounter = 0.f;
     }
 }
 
 void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if (!m_projectile)
+    if (!m_projectile && m_markedForDeletion)
         return;
 
     target.draw(*m_projectile);
+}
+
+sf::Shape *Projectile::shape()
+{
+    return m_projectile;
 }

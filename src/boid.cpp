@@ -13,6 +13,8 @@ Boid::Boid(int width, int height)
     , m_wanderTimeAcc(0.f)
     , m_fireTime(0.f)
     , m_fireTimeAcc(0.f)
+    , m_damage(5.f)
+    , m_markedForDeletion(false)
 {
     m_player = Scene::instance()->player();
     m_game = Scene::instance()->game();
@@ -82,4 +84,24 @@ void Boid::wander(float dt, sf::Vector2f wanderTopLeft, sf::Vector2f wanderBotto
 void Boid::applyForce(sf::Vector2f force, float weight)
 {
     m_boidAcceleration += truncate(force * weight, m_maxAcceleration);
+}
+
+void Boid::markForDeletion()
+{
+    m_markedForDeletion = true;
+}
+
+bool Boid::markedForDeletion() const
+{
+    return m_markedForDeletion;
+}
+
+void Boid::setDamage(float damage)
+{
+    m_damage = damage;
+}
+
+float Boid::damage() const
+{
+    return m_damage;
 }

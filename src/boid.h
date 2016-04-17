@@ -20,6 +20,11 @@ public:
     void setWanderTime(float wanderTime) { m_wanderTime = wanderTime; }
     void setFireTime(float fireTime) { m_fireTime = m_fireTimeAcc = fireTime; }
 
+    void markForDeletion();
+    bool markedForDeletion() const;
+    void setDamage(float damage);
+    float damage() const;
+
 protected:
     sf::Vector2f m_boidVelocity;
     sf::Vector2f m_boidAcceleration;
@@ -32,6 +37,10 @@ protected:
     float m_fireTimeAcc;
     Player *m_player;
     sf::RenderWindow *m_game;
+    float m_damage;
+
+private:
+    bool m_markedForDeletion;
 };
 
 #endif // __BOID_H__

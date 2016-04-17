@@ -34,9 +34,17 @@ public:
 
     virtual void move(const float x, const float y);
 
+    void markForDeletion();
     bool markedForDeletion() const;
 
+    virtual void setPlayerProjectile(bool playerProjectile);
+    virtual bool playerProjectile();
+
+    virtual float damage() const;
+
     virtual void update(sf::Time delta = sf::Time::Zero);
+
+    virtual sf::Shape *shape();
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -53,7 +61,9 @@ protected:
 
 private:
     float m_livenessCounter;
-    bool m_markForDeletion;
+    bool m_markedForDeletion;
+
+    bool m_playerProjectile;
 };
 
 #endif // __PROJECTILE_H__
