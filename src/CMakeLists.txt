@@ -31,6 +31,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/mediumenemy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/smallenemy.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/largeenemy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ship.cpp

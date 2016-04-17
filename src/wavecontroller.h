@@ -12,6 +12,7 @@ public:
     void spawnCluster();
     void spawnMediumEnemyCluster();
     void spawnSmallEnemyCluster();
+    void spawnLargeEnemyCluster();
     unsigned int currentWave() const { return m_currentWave; }
 
 private:
