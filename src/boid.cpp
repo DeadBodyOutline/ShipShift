@@ -10,6 +10,8 @@ Boid::Boid(int width, int height)
     , m_maxAcceleration(0.f)
     , m_wanderTime(0.f)
     , m_wanderTimeAcc(0.f)
+    , m_fireTime(0.f)
+    , m_fireTimeAcc(0.f)
 {
 }
 
@@ -18,6 +20,14 @@ void Boid::update(sf::Time delta)
     m_boidVelocity += m_boidAcceleration;
     m_ship->setPosition(m_ship->getPosition() + m_boidVelocity);
     m_boidAcceleration *= 0.f;
+
+    if (m_fireTime <= 0.f)
+        return;
+    m_fireTimeAcc -= delta.asSeconds();
+    if (m_fireTimeAcc <= 0.f) {
+        attack();
+        m_fireTimeAcc = m_fireTime;
+    }
 }
 
 void Boid::seek(sf::Vector2f target, float weight)

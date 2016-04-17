@@ -17,6 +17,7 @@ public:
     void setMaxSpeed(float maxSpeed) { m_maxSpeed = maxSpeed; }
     void setMaxAcceleration(float maxAcceleration) { m_maxAcceleration = maxAcceleration; }
     void setWanderTime(float wanderTime) { m_wanderTime = wanderTime; }
+    void setFireTime(float fireTime) { m_fireTime = fireTime; m_fireTimeAcc = fireTime; }
 
 protected:
     sf::Vector2f m_boidVelocity;
@@ -26,6 +27,8 @@ protected:
     float m_maxAcceleration;
     float m_wanderTime;
     float m_wanderTimeAcc;
+    float m_fireTime;
+    float m_fireTimeAcc;
 };
 
 #endif // __BOID_H__
