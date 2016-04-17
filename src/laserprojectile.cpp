@@ -21,6 +21,8 @@ void LaserProjectile::update(sf::Time delta)
     float newX = cos(angle) * m_velocity;
     float newY = sin(angle) * m_velocity;
     move(newX, newY);
+
+    Projectile::update(delta);
 }
 
 void LaserProjectile::draw(sf::RenderTarget& target, sf::RenderStates states) const

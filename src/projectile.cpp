@@ -7,6 +7,9 @@ Projectile::Projectile(int width, int height)
     , m_height(height)
     , m_velocity(10.f)
     , m_damage(10.f)
+    , m_liveness(2.f)
+    , m_livenessCounter(0.f)
+    , m_markForDeletion(false)
 {
 }
 
@@ -135,8 +138,19 @@ void Projectile::move(const float x, const float y)
 }
 
 
+bool Projectile::markedForDeletion() const
+{
+    return m_markForDeletion;
+}
+
 void Projectile::update(sf::Time delta)
 {
+    m_livenessCounter += delta.asSeconds();
+
+    if (m_livenessCounter >= m_liveness) {
+        m_markForDeletion = true;
+        m_livenessCounter = 0.f;
+    }
 }
 
 void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const

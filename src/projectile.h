@@ -34,6 +34,8 @@ public:
 
     virtual void move(const float x, const float y);
 
+    bool markedForDeletion() const;
+
     virtual void update(sf::Time delta = sf::Time::Zero);
 
 protected:
@@ -46,6 +48,12 @@ protected:
 
     float m_velocity;
     float m_damage;
+
+    float m_liveness;
+
+private:
+    float m_livenessCounter;
+    bool m_markForDeletion;
 };
 
 #endif // __PROJECTILE_H__

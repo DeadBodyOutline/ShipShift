@@ -48,8 +48,14 @@ void TriangleShip::altAttack()
 
 void TriangleShip::update(sf::Time delta)
 {
-    for (auto projectile : m_projectiles)
-        projectile->update(delta);
+    for (auto i = m_projectiles.begin(); i != m_projectiles.end(); ) {
+        (*i)->update(delta);
+
+        if ((*i)->markedForDeletion())
+            i = m_projectiles.erase(i);
+        else
+            ++i;
+    }
 
     Ship::update(delta);
 }

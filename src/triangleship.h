@@ -4,7 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics/ConvexShape.hpp>
 
-#include <vector>
+#include <list>
 
 #include "ship.h"
 #include "laserprojectile.h"
@@ -23,7 +23,7 @@ public:
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    std::vector<LaserProjectile *> m_projectiles;
+    std::list<LaserProjectile *> m_projectiles;
 };
 
 #endif // __TRIANGLESHIP_H__
