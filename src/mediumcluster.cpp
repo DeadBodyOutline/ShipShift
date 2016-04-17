@@ -30,7 +30,8 @@ void MediumCluster::spawn()
     for (int i = 0; i < 10; ++i) {
         MediumEnemy *enemy = new MediumEnemy(20, 20);
         enemy->setPosition(wDis(gen), hDis(gen));
-        enemy->setMaxSpeed(0.4f);
+        enemy->setMaxSpeed(0.8f);
+        enemy->setMaxAcceleration(0.05f);
         enemy->setWanderTime(wanderDis(gen));
         m_boids.push_back(static_cast<Boid *>(enemy));
     }

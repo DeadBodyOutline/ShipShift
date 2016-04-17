@@ -7,6 +7,7 @@
 Boid::Boid(int width, int height)
     : Ship(width, height)
     , m_maxSpeed(0.f)
+    , m_maxAcceleration(0.f)
     , m_wanderTime(0.f)
     , m_wanderTimeAcc(0.f)
 {
@@ -24,6 +25,7 @@ void Boid::seek(sf::Vector2f target, float weight)
     sf::Vector2f desired = target - m_ship->getPosition();
     desired = thor::unitVector(desired);
     desired = desired * m_maxSpeed;
+    desired = truncate(desired, m_maxSpeed);
 
     sf::Vector2f steer = desired - m_boidVelocity;
     applyForce(steer, weight);
@@ -50,4 +52,5 @@ void Boid::wander(float dt, sf::Vector2f wanderTopLeft, sf::Vector2f wanderBotto
 void Boid::applyForce(sf::Vector2f force, float weight)
 {
     m_boidAcceleration += force * weight;
+    m_boidAcceleration = truncate(m_boidAcceleration, m_maxAcceleration);
 }

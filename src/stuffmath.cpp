@@ -1,5 +1,6 @@
 #include "stuffmath.h"
 
+#include <Thor/Vectors/VectorAlgebra2D.hpp>
 #include <cmath>
 
 // Code based on the following sources:
@@ -51,4 +52,12 @@ int stuffCompareDistance(const float x1, const float y1, const float x2, const f
         ret = -1;
 
     return ret;
+}
+
+sf::Vector2f truncate(sf::Vector2f vec, float max)
+{
+    float len = thor::length(vec);
+    len = len > max ? max : len;
+    thor::setLength(vec, len);
+    return vec;
 }
