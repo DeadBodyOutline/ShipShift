@@ -61,3 +61,13 @@ sf::Vector2f truncate(sf::Vector2f vec, float max)
         thor::setLength(vec, max);
     return vec;
 }
+
+float d2r(float degrees)
+{
+    return degrees * 180.f / PI;
+}
+
+float r2d(float rad)
+{
+    return rad * PI / 180.f;
+}

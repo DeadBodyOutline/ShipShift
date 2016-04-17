@@ -1,6 +1,7 @@
 #include <algorithm>
 
 #include "player.h"
+#include "stuffmath.h"
 
 Player::Player(int width, int height)
     : sf::Drawable()
@@ -58,7 +59,7 @@ void Player::rotate(int x, int y)
     sf::Vector2f v = sf::Vector2f(x, y) - position();
 
     m_angle = atan2f(v.y, v.x);
-    float angle = m_angle * 180.f / 3.14159265359f;
+    float angle = d2r(m_angle);
 
     m_currentShip->setRotation(angle + 90);
 }
