@@ -73,7 +73,7 @@ void WaveController::spawnMediumEnemyCluster()
     std::uniform_real_distribution<> spawnDis(20.f, 300.f);
     std::uniform_real_distribution<> fireDis(2.f, 5.f);
 
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 5; ++i) {
         MediumEnemy *enemy = new MediumEnemy(20, 20);
         enemy->setPosition(wDis(gen), hDis(gen));
         // don't spawn enemies too close to the player
