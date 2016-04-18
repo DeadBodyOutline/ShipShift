@@ -10,6 +10,7 @@
 #include "scene.h"
 #include "triangleship.h"
 #include "circleship.h"
+#include "rectangleship.h"
 
 // TODO: create a HUD class
 sf::Text getWaveText(sf::Font &font, unsigned int wave)
@@ -91,6 +92,53 @@ void drawTriangleShipInfo(sf::RenderWindow &game, sf::Font &font)
 
 void drawRectangleShipInfo(sf::RenderWindow &game, sf::Font &font)
 {
+    sf::RectangleShape cooldownBar(sf::Vector2f(100.f, 10.f));
+    cooldownBar.setFillColor(sf::Color(255, 0, 0));
+    cooldownBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownBar.setOutlineThickness(3);
+
+
+    RectangleShip *ship = static_cast<RectangleShip *>(Scene::instance()->player()->currentShip());
+    float cooldown;
+    float cooldownCounter;
+
+    if (ship->charge()) {
+        cooldown = ship->chargeTime();
+        cooldownCounter = ship->chargeTimeAcc();
+    } else {
+        cooldown = ship->chargeCooldown();
+        cooldownCounter = ship->chargeCooldownAcc();
+    }
+
+    float value = 1.f;
+    if (cooldownCounter > 0.f)
+        value = cooldownCounter / cooldown;
+
+    sf::RectangleShape cooldownValueBar(sf::Vector2f(cooldownBar.getSize().x * value, 10.f));
+    cooldownValueBar.setFillColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineThickness(3);
+
+    sf::Vector2f pos(game.getSize().x - cooldownBar.getSize().x - 10.f,
+                     game.getSize().y - 26.f);
+    cooldownBar.setPosition(pos);
+    cooldownValueBar.setPosition(pos);
+    game.draw(cooldownBar);
+    game.draw(cooldownValueBar);
+
+    sf::Text text;
+    text.setFont(font);
+    if (ship->charge())
+        text.setString("Charge Duration");
+    else
+        text.setString("Charge Cooldown");
+    sf::Vector2f textPos(game.getSize().x - cooldownBar.getSize().x - 10.f,
+                         game.getSize().y - 30.f);
+    textPos.x -= cooldownBar.getSize().x + 180.f;
+    text.setPosition(textPos);
+    text.setCharacterSize(15);
+    text.setColor(sf::Color::White);
+    game.draw(text);
 }
 
 void drawCircleShipInfo(sf::RenderWindow &game, sf::Font &font)

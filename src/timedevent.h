@@ -18,6 +18,7 @@ public:
     bool running() const { return m_running; }
     bool finished() const { return m_finished; }
     void run(std::function<void(float)> handler);
+    void wait(std::function<void(float)> handler);
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -30,6 +31,7 @@ protected:
     bool m_finished;
     std::function<void()> m_onTriggered;
     std::function<void(float)> m_onRun;
+    std::function<void(float)> m_onWait;
     std::function<void()> m_onFinished;
     std::function<void(sf::RenderTarget&, sf::RenderStates)> m_onDraw;
 };

@@ -8,6 +8,7 @@ TimedEvent::TimedEvent(float triggerTime, float duration)
     , m_finished(false)
     , m_onTriggered([](){})
     , m_onRun([](float){})
+    , m_onWait([](float){})
     , m_onFinished([](){})
     , m_onDraw([](sf::RenderTarget&, sf::RenderStates){})
 {
@@ -21,7 +22,8 @@ void TimedEvent::update(float dt)
             m_triggered = true;
             m_running = true;
             m_onTriggered();
-        }
+        } else
+            m_onWait(dt);
     } else if (m_running) {
         m_duration -= dt;
         if (m_duration <= 0.f) {
@@ -41,6 +43,11 @@ void TimedEvent::onTrigger(std::function<void()> handler)
 void TimedEvent::run(std::function<void(float)> handler)
 {
     m_onRun = handler;
+}
+
+void TimedEvent::wait(std::function<void(float)> handler)
+{
+    m_onWait = handler;
 }
 
 void TimedEvent::onFinish(std::function<void()> handler)

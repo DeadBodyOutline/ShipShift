@@ -5,10 +5,12 @@
 
 RectangleShip::RectangleShip(int width, int height)
     : Ship(width, height)
-    , m_stealth(false)
-    , m_stealthEnabled(true)
-    , m_stealthTime(3.f)
-    , m_stealthCooldown(6.f)
+    , m_charge(false)
+    , m_chargeEnabled(true)
+    , m_chargeTime(3.f)
+    , m_chargeTimeAcc(3.f)
+    , m_chargeCooldown(6.f)
+    , m_chargeCooldownAcc(0.f)
 {
     m_ship = new sf::RectangleShape(sf::Vector2f(width, height));
 
@@ -32,10 +34,10 @@ void RectangleShip::attack()
 
 void RectangleShip::altAttack()
 {
-    if (!m_stealthEnabled)
+    if (!m_chargeEnabled)
         return;
 
-    m_stealth = true;
+    m_charge = true;
 
     m_ship->setFillColor(sf::Color(255, 255, 255, 127));
     m_ship->setOutlineColor(sf::Color(255, 255, 255, 127));
@@ -43,11 +45,13 @@ void RectangleShip::altAttack()
     setMaxVelocity(300.f);
     Scene::instance()->player()->revaluateVelocity();
     Scene::instance()->player()->setCanSwitchShip(false);
+    m_chargeTimeAcc = m_chargeTime;
+    m_chargeCooldownAcc = 0.f;
 
-    TimedEvent *stealthTime = new TimedEvent(m_stealthTime, m_stealthCooldown);
-    stealthTime->onTrigger([&]() {
-        m_stealth = false;
-        m_stealthEnabled = false;
+    TimedEvent *chargeTime = new TimedEvent(m_chargeTime, m_chargeCooldown);
+    chargeTime->onTrigger([&]() {
+        m_charge = false;
+        m_chargeEnabled = false;
         m_ship->setFillColor(sf::Color(0, 0, 0));
         m_ship->setOutlineColor(sf::Color(255, 255, 255));
         setVelModifier(.5f);
@@ -56,11 +60,23 @@ void RectangleShip::altAttack()
         Scene::instance()->player()->setCanSwitchShip(true);
     });
 
-    stealthTime->onFinish([&]() {
-        m_stealthEnabled = true;
+    chargeTime->wait([&](float dt) {
+        m_chargeTimeAcc -= dt;
+        if (m_chargeTimeAcc <= 0.f)
+            m_chargeTimeAcc = m_chargeTime;
     });
 
-    Scene::instance()->addTimedEvent(stealthTime);
+    chargeTime->run([&](float dt) {
+        m_chargeCooldownAcc += dt;
+        if (m_chargeCooldownAcc >= m_chargeCooldown)
+            m_chargeCooldownAcc = m_chargeCooldown;
+    });
+
+    chargeTime->onFinish([&]() {
+        m_chargeEnabled = true;
+    });
+
+    Scene::instance()->addTimedEvent(chargeTime);
 }
 
 void RectangleShip::update(sf::Time delta)

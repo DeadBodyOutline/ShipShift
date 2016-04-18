@@ -17,14 +17,22 @@ public:
 
     void update(sf::Time delta = sf::Time::Zero);
 
+    float chargeTime() const { return m_chargeTime; }
+    float chargeTimeAcc() const { return m_chargeTimeAcc; }
+    float chargeCooldown() const { return m_chargeCooldown; }
+    float chargeCooldownAcc() const { return m_chargeCooldownAcc; }
+    bool charge() const { return m_charge; }
+
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:
-    bool m_stealth;
-    bool m_stealthEnabled;
-    float m_stealthTime;
-    float m_stealthCooldown;
+    bool m_charge;
+    bool m_chargeEnabled;
+    float m_chargeTime;
+    float m_chargeTimeAcc;
+    float m_chargeCooldown;
+    float m_chargeCooldownAcc;
 };
 
 #endif // __RECTANGLESHIP_H__
