@@ -271,6 +271,7 @@ int main()
         std::cout << "Failed to load font!" << std::endl;
 
     sf::RenderWindow renderWindow(sf::VideoMode(800u, 600u), "ld35");
+    sf::Color backgroundColor = sf::Color(5, 6, 8, 255);
 
     bool gameStarted = false;
     sf::Texture dboTexture;
@@ -356,7 +357,7 @@ int main()
         }
 
         if (!gameStarted) {
-            renderWindow.clear();
+            renderWindow.clear(backgroundColor);
             renderWindow.draw(dboSprite);
             renderWindow.display();
             continue;
@@ -364,7 +365,7 @@ int main()
 
         bool gameOver = scene->player()->health() <= 0.f;
 
-        renderWindow.clear();
+        renderWindow.clear(backgroundColor);
         if (!gameOver) {
             scene->draw();
             renderWindow.draw(getWaveText(font, scene->currentWave()));
