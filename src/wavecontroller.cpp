@@ -14,7 +14,7 @@
 
 WaveController::WaveController()
     : m_currentWave(0)
-    , m_timeToNewWave(30)
+    , m_timeToNewWave(20)
 {
 }
 
@@ -42,7 +42,7 @@ void WaveController::spawnCluster()
     } else if (m_currentWave == 3) {
         spawnLargeEnemyCluster();
     } else if (m_currentWave == 4) {
-        m_timeToNewWave = 45;
+        m_timeToNewWave = 30;
         spawnMediumEnemyCluster();
         spawnLargeEnemyCluster();
     } else if (m_currentWave == 5) {
