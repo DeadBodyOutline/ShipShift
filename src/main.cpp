@@ -18,7 +18,31 @@ sf::Text getWaveText(sf::Font &font, unsigned int wave)
     stringStream << "Wave " << wave << "!";
     text.setString(stringStream.str());
     text.setPosition(10.f, 10.f);
-    text.setCharacterSize(20);
+    text.setCharacterSize(15);
+    text.setColor(sf::Color::White);
+    return text;
+}
+
+sf::Text getShipText(sf::RenderWindow &game, sf::Font &font, unsigned int wave)
+{
+    sf::Text text;
+    text.setFont(font);
+    std::ostringstream stringStream;
+
+    Player::ShipType type = Scene::instance()->player()->shipType();
+    if (type == Player::Triangle)
+        stringStream << "Shooter";
+    else if (type == Player::Rectangle)
+        stringStream << "Melee";
+    else if (type == Player::Circle)
+        stringStream << "Defender";
+
+    stringStream << " Form";
+
+    sf::Vector2f pos(10.f, game.getSize().y - 30.f);
+    text.setPosition(pos);
+    text.setString(stringStream.str());
+    text.setCharacterSize(15);
     text.setColor(sf::Color::White);
     return text;
 }
@@ -100,6 +124,7 @@ int main()
         renderWindow.clear();
         scene->draw();
         renderWindow.draw(getWaveText(font, scene->currentWave()));
+        renderWindow.draw(getShipText(renderWindow, font, scene->currentWave()));
         renderWindow.display();
     }
 
