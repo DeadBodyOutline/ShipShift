@@ -52,8 +52,6 @@ void WaveController::spawnCluster()
         m_timeToNewWave = 45;
        // TODO: after this point, spawn random mixed waves, increasing difficulty
     }
-
-    std::cout << "Spawnning new wave! Wave number " << m_currentWave << ". Time to new wave: " << m_timeToNewWave << " seconds." << std::endl;
 }
 
 void WaveController::spawnMediumEnemyCluster()

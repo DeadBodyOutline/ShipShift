@@ -23,6 +23,7 @@ public:
     void addShip(Ship *ship);
     void addProjectile(Projectile *projectile);
     void addTimedEvent(TimedEvent *event);
+    unsigned int currentWave() const { return m_waveController.currentWave(); }
 
 protected:
     Scene();

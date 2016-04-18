@@ -2,12 +2,32 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+#include <sstream>
+
 #include "input.h"
 #include "player.h"
 #include "scene.h"
 
+// TODO: create a HUD class
+sf::Text getWaveText(sf::Font &font, unsigned int wave)
+{
+    sf::Text text;
+    text.setFont(font);
+    std::ostringstream stringStream;
+    stringStream << "Wave " << wave << "!";
+    text.setString(stringStream.str());
+    text.setPosition(10.f, 10.f);
+    text.setCharacterSize(20);
+    text.setColor(sf::Color::White);
+    return text;
+}
+
 int main()
 {
+    sf::Font font;
+    if (!font.loadFromFile("resources/pressstart.ttf"))
+        std::cout << "Failed to load font!" << std::endl;
     sf::RenderWindow renderWindow(sf::VideoMode(800u, 600u), "ld35");
 
     sf::Clock deltaClock, frameClock;
@@ -79,6 +99,7 @@ int main()
 
         renderWindow.clear();
         scene->draw();
+        renderWindow.draw(getWaveText(font, scene->currentWave()));
         renderWindow.display();
     }
 
