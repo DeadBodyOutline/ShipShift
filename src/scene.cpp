@@ -52,6 +52,9 @@ void Scene::update(float dt)
         else
             ++i;
     }
+
+    if (!m_ships.size())
+        m_waveController.nextWave();
 }
 
 void Scene::draw()

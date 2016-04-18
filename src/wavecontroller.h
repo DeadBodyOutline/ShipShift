@@ -17,6 +17,7 @@ public:
     unsigned int currentWave() const { return m_currentWave; }
     float waveTime() const { return m_timeToNewWave; }
     float waveTimeAcc() const { return m_timeToNewWaveAcc; }
+    void nextWave() { m_timeToNewWaveAcc = 0.f; }
 
 private:
     unsigned int m_currentWave;
