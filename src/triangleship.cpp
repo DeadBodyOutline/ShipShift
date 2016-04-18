@@ -9,7 +9,7 @@ TriangleShip::TriangleShip(int width, int height)
     : Ship(width, height)
     , m_target(sf::Vector2i())
     , m_canShootAltAttack(true)
-    , m_cooldown(2.f)
+    , m_cooldown(10.f)
     , m_cooldownCounter(0.f)
 {
     m_ship = new sf::ConvexShape(3);
@@ -53,28 +53,26 @@ void TriangleShip::altAttack()
     if (!m_canShootAltAttack)
         return;
 
-    Ship *nearest = Scene::instance()->nearestEnemy();
-    if (!nearest)
-        return;
+    int n = 30;
+    for (int i = 0; i < 360; i += 360 / n) {
+        LaserProjectile *projectile = new LaserProjectile(4, 30);
+        projectile->setPlayerProjectile(true);
+        projectile->setColor(sf::Color(160, 32, 240));
+        projectile->setRotation(rotation());
+        projectile->setDamage(10.f);
+
+        float angle = i;
+        sf::Vector2f displacement;
+        displacement.x = cos(angle) * height() / 2;
+        displacement.y = sin(angle) * height() / 2;
+        projectile->setRotation(angle + 90);
+
+        projectile->setPosition(position() + displacement);
+
+        Scene::instance()->addProjectile(projectile);
+    }
 
     m_canShootAltAttack = false;
-
-    GuidedProjectile *projectile = new GuidedProjectile(8);
-    projectile->setPlayerProjectile(true);
-    projectile->setColor(sf::Color(255, 165, 0));
-    projectile->setRotation(rotation());
-    projectile->setTarget(nearest);
-    projectile->setDamage(50.f);
-
-    float angle = r2d(rotation() - 90);
-
-    sf::Vector2f displacement;
-    displacement.x = cos(angle) * (height() / 5 * 4);
-    displacement.y = sin(angle) * (height() / 5 * 4);
-
-    projectile->setPosition(position() + displacement);
-
-    Scene::instance()->addProjectile(projectile);
 }
 
 void TriangleShip::update(sf::Time delta)
