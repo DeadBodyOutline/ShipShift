@@ -155,6 +155,7 @@ void WaveController::spawnSmallEnemyCluster(float wave)
         enemy->setMaxSpeed(0.8f);
         enemy->setMaxAcceleration(0.03);
         enemy->setWanderTime(wanderDis(gen));
+        enemy->setDamage(20.f);
         enemy->setFireTime(8.f);
         scene->addShip(static_cast<Ship *>(enemy));
     }
@@ -192,6 +193,7 @@ void WaveController::spawnLargeEnemyCluster(float wave)
         enemy->setWanderTime(wanderDis(gen));
         enemy->setFireTime(fireDis(gen));
         enemy->setHealth(100);
+        enemy->setDamage(90.f);
         scene->addShip(static_cast<Ship *>(enemy));
     }
 }
