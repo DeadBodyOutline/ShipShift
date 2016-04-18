@@ -35,6 +35,7 @@ void TriangleShip::attack()
     projectile->setPlayerProjectile(true);
     projectile->setColor(outlineColor());
     projectile->setRotation(rotation());
+    projectile->setDamage(10.f);
 
     float angle = r2d(rotation() - 90);
 

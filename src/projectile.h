@@ -40,6 +40,7 @@ public:
     virtual void setPlayerProjectile(bool playerProjectile);
     virtual bool playerProjectile();
 
+    virtual void setDamage(float damage) { m_damage = damage; }
     virtual float damage() const;
 
     virtual void update(sf::Time delta = sf::Time::Zero);
