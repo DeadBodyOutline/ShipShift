@@ -13,6 +13,7 @@ public:
     void spawnMediumEnemyCluster();
     void spawnSmallEnemyCluster();
     void spawnLargeEnemyCluster();
+    void reset();
     unsigned int currentWave() const { return m_currentWave; }
     float waveTime() const { return m_timeToNewWave; }
     float waveTimeAcc() const { return m_timeToNewWaveAcc; }

@@ -38,6 +38,18 @@ sf::Text getGameOverText(sf::RenderWindow &game, sf::Font &font)
     return text;
 }
 
+sf::Text getRetryText(sf::RenderWindow &game, sf::Font &font)
+{
+    sf::Text text;
+    text.setFont(font);
+    std::ostringstream stringStream;
+    text.setString("Press <RETURN> to retry");
+    text.setPosition(80.f, game.getSize().y / 2.f + 15.f);
+    text.setCharacterSize(30);
+    text.setColor(sf::Color::White);
+    return text;
+}
+
 sf::Text getShipText(sf::RenderWindow &game, sf::Font &font, unsigned int wave)
 {
     sf::Text text;
@@ -274,6 +286,7 @@ int main()
     sf::Color backgroundColor = sf::Color(5, 6, 8, 255);
 
     bool gameStarted = false;
+    bool gameOver = false;
     sf::Texture dboTexture;
     if (!dboTexture.loadFromFile("resources/dbo.png"))
     std::cout << "Failed to load image!" << std::endl;
@@ -288,11 +301,9 @@ int main()
     float previousUpdateTime = deltaClock.getElapsedTime().asSeconds();
     float accumulator = 0.f;
 
-    Player player(20, 20);
-    player.setPosition(800 / 2, 600 / 2);
+    Player *player = Scene::instance()->player();
 
     Scene *scene = Scene::instance();
-    scene->setPlayer(&player);
     scene->setGame(&renderWindow);
 
     Input input;
@@ -308,30 +319,36 @@ int main()
         // TODO: rotate spaceship right
     });
 
+    input.registerKeyHandler(sf::Keyboard::Return, [&](sf::Event e){
+        if (gameOver)
+            scene->reset();
+    });
+
     input.registerHandler(sf::Event::MouseButtonPressed, [&](sf::Event e){
-        if (e.mouseButton.button == sf::Mouse::Button::Left)
-            player.attack();
+        if (e.mouseButton.button == sf::Mouse::Button::Left) {
+            scene->player()->attack();
+        }
 
         if (e.mouseButton.button == sf::Mouse::Button::Right)
-            player.altAttack();
+            scene->player()->altAttack();
     });
 
     input.registerHandler(sf::Event::MouseMoved, [&](sf::Event e){
-        player.rotate(e.mouseMove.x, e.mouseMove.y);
-        player.accelerate();
+        scene->player()->rotate(e.mouseMove.x, e.mouseMove.y);
+        scene->player()->accelerate();
     });
 
     /// XXX just to quick test ship changing
     input.registerKeyHandler(sf::Keyboard::Num1, [&](sf::Event e){
-        player.changeShipType(Player::ShipType::Triangle);
+        scene->player()->changeShipType(Player::ShipType::Triangle);
     });
 
     input.registerKeyHandler(sf::Keyboard::Num2, [&](sf::Event e){
-        player.changeShipType(Player::ShipType::Rectangle);
+        scene->player()->changeShipType(Player::ShipType::Rectangle);
     });
 
     input.registerKeyHandler(sf::Keyboard::Num3, [&](sf::Event e){
-        player.changeShipType(Player::ShipType::Circle);
+        scene->player()->changeShipType(Player::ShipType::Circle);
     });
     ///
 
@@ -363,14 +380,14 @@ int main()
             continue;
         }
 
-        bool gameOver = scene->player()->health() <= 0.f;
+        gameOver = scene->player()->health() <= 0.f;
 
         renderWindow.clear(backgroundColor);
         if (!gameOver) {
             scene->draw();
             renderWindow.draw(getWaveText(font, scene->currentWave()));
             renderWindow.draw(getShipText(renderWindow, font, scene->currentWave()));
-            Player::ShipType type = Scene::instance()->player()->shipType();
+            Player::ShipType type = scene->player()->shipType();
 
             if (type == Player::Triangle)
                 drawTriangleShipInfo(renderWindow, font);
@@ -381,8 +398,10 @@ int main()
 
             drawPlayerHealth(renderWindow, font);
             drawWaveInfo(renderWindow, font);
-        } else
+        } else {
             renderWindow.draw(getGameOverText(renderWindow, font));
+            renderWindow.draw(getRetryText(renderWindow, font));
+        }
 
         renderWindow.display();
     }

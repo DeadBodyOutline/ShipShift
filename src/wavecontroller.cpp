@@ -15,6 +15,7 @@
 WaveController::WaveController()
     : m_currentWave(0)
     , m_timeToNewWave(20)
+    , m_timeToNewWaveAcc(0.f)
 {
 }
 
@@ -164,4 +165,11 @@ void WaveController::spawnLargeEnemyCluster()
         enemy->setHealth(100);
         scene->addShip(static_cast<Ship *>(enemy));
     }
+}
+
+void WaveController::reset()
+{
+    m_currentWave = 0;
+    m_timeToNewWave = 20;
+    m_timeToNewWaveAcc = 0.f;
 }

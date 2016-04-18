@@ -3,6 +3,8 @@
 
 Scene::Scene()
 {
+    m_player = new Player(20, 20);
+    m_player->setPosition(800 / 2, 600 / 2);
 }
 
 Scene *Scene::instance()
@@ -122,4 +124,18 @@ void Scene::checkCollisions()
             }
         }
     }
+}
+
+void Scene::reset()
+{
+    for (auto i = m_ships.begin(); i != m_ships.end();)
+        i = m_ships.erase(i);
+    for (auto i = m_projectiles.begin(); i != m_projectiles.end();)
+        i = m_projectiles.erase(i);
+    for (auto i = m_events.begin(); i != m_events.end();)
+        i = m_events.erase(i);
+    delete m_player;
+    m_player = new Player(20, 20);
+    m_player->setPosition(800 / 2, 600 / 2);
+    m_waveController.reset();
 }
