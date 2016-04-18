@@ -31,7 +31,7 @@ TriangleShip::TriangleShip(int width, int height)
 
 void TriangleShip::attack()
 {
-    LaserProjectile *projectile = new LaserProjectile();
+    LaserProjectile *projectile = new LaserProjectile(4, 30);
     projectile->setPlayerProjectile(true);
     projectile->setColor(outlineColor());
     projectile->setRotation(rotation());
