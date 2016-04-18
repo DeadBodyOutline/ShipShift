@@ -6,7 +6,7 @@ CircleProjectile::CircleProjectile(int width, int height)
 {
     m_projectile = new sf::CircleShape(width);
     m_projectile->setOrigin(width / 2, height / 2);
-    m_velocity = 5.f;
+    m_velocity = 2.f;
     m_damage = 1.f;
 }
 

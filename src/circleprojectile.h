@@ -10,7 +10,7 @@
 class CircleProjectile : public Projectile
 {
 public:
-    CircleProjectile(int width = 2, int height = 20);
+    CircleProjectile(int width = 4, int height = 4);
     virtual ~CircleProjectile();
 
     void update(sf::Time delta = sf::Time::Zero);
