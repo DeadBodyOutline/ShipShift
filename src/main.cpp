@@ -8,6 +8,7 @@
 #include "input.h"
 #include "player.h"
 #include "scene.h"
+#include "triangleship.h"
 
 // TODO: create a HUD class
 sf::Text getWaveText(sf::Font &font, unsigned int wave)
@@ -44,7 +45,57 @@ sf::Text getShipText(sf::RenderWindow &game, sf::Font &font, unsigned int wave)
     text.setString(stringStream.str());
     text.setCharacterSize(15);
     text.setColor(sf::Color::White);
+
     return text;
+}
+
+void drawTriangleShipInfo(sf::RenderWindow &game, sf::Font &font)
+{
+    sf::RectangleShape cooldownBar(sf::Vector2f(100.f, 10.f));
+    cooldownBar.setFillColor(sf::Color(255, 0, 0));
+    cooldownBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownBar.setOutlineThickness(3);
+
+
+    TriangleShip *ship = static_cast<TriangleShip *>(Scene::instance()->player()->currentShip());
+    float cooldown = ship->cooldown();
+    float cooldownCounter = ship->cooldownCounter();
+    float value = 1.f;
+    if (cooldownCounter > 0.f)
+        value = cooldownCounter / cooldown;
+
+    sf::RectangleShape cooldownValueBar(sf::Vector2f(cooldownBar.getSize().x * value, 10.f));
+    cooldownValueBar.setFillColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineThickness(3);
+
+    sf::Vector2f pos(game.getSize().x - cooldownBar.getSize().x - 10.f,
+                     game.getSize().y - 26.f);
+    cooldownBar.setPosition(pos);
+    cooldownValueBar.setPosition(pos);
+    game.draw(cooldownBar);
+    game.draw(cooldownValueBar);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Missile Cooldown");
+    sf::Vector2f textPos(game.getSize().x - cooldownBar.getSize().x - 10.f,
+                         game.getSize().y - 30.f);
+    textPos.x -= cooldownBar.getSize().x + 180.f;
+    text.setPosition(textPos);
+    text.setCharacterSize(15);
+    text.setColor(sf::Color::White);
+    game.draw(text);
+}
+
+void drawRectangleShipInfo(sf::RenderWindow &game, sf::Font &font)
+{
+
+}
+
+void drawCircleShipInfo(sf::RenderWindow &game, sf::Font &font)
+{
+
 }
 
 int main()
@@ -125,6 +176,15 @@ int main()
         scene->draw();
         renderWindow.draw(getWaveText(font, scene->currentWave()));
         renderWindow.draw(getShipText(renderWindow, font, scene->currentWave()));
+        Player::ShipType type = Scene::instance()->player()->shipType();
+
+        if (type == Player::Triangle)
+            drawTriangleShipInfo(renderWindow, font);
+        else if (type == Player::Rectangle)
+            drawRectangleShipInfo(renderWindow, font);
+        else if (type == Player::Circle)
+            drawCircleShipInfo(renderWindow, font);
+
         renderWindow.display();
     }
 

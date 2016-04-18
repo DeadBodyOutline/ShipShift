@@ -17,6 +17,9 @@ public:
 
     void update(sf::Time delta = sf::Time::Zero);
 
+    float cooldown() { return m_cooldown; }
+    float cooldownCounter() { return m_cooldownCounter; }
+
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

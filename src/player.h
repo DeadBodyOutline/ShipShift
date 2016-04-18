@@ -53,6 +53,8 @@ public:
 
     void setCanSwitchShip(bool canSwitch);
 
+    Ship *currentShip() { return m_currentShip; }
+
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
