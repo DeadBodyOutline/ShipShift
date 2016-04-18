@@ -15,6 +15,14 @@ public:
     void attack();
     void altAttack();
 
+    bool collideWith(sf::Shape *shape = nullptr);
+    // code based on
+    // https://github.com/SFML/SFML/wiki/Source:-Simple-Collision-Detection-for-SFML-2
+    sf::Vector2f getShapeCenter(const sf::Shape &shape);
+    sf::Vector2f getShapeSize(const sf::Shape &shape);
+    bool circleTest(const sf::Shape &shape1, const sf::Shape &shape2);
+    //
+
     void update(sf::Time delta = sf::Time::Zero);
 
     float shieldDuration() const { return m_shieldDuration; }

@@ -67,7 +67,50 @@ void CircleShip::update(sf::Time delta)
 
 void CircleShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    Ship::draw(target, states);
     if (m_shieldUp)
         target.draw(m_shield);
+
+    Ship::draw(target, states);
 }
+
+bool CircleShip::collideWith(sf::Shape *shape)
+{
+    if (!shape)
+        return false;
+
+    return (m_shieldUp)
+        ? circleTest(m_shield, *shape)
+        : circleTest(*m_ship, *shape);
+}
+
+// code based on https://github.com/SFML/SFML/wiki/Source:-Simple-Collision-Detection-for-SFML-2
+sf::Vector2f CircleShip::getShapeCenter(const sf::Shape &shape)
+{
+    sf::FloatRect AABB = shape.getGlobalBounds();
+    return sf::Vector2f (AABB.left + AABB.width / 2.f,
+            AABB.top + AABB.height / 2.f);
+}
+
+sf::Vector2f CircleShip::getShapeSize(const sf::Shape &shape)
+{
+    sf::FloatRect originalSize = shape.getGlobalBounds();
+    sf::Vector2f scale = shape.getScale();
+
+    return sf::Vector2f(originalSize.width * scale.x,
+            originalSize.height * scale.y);
+}
+
+bool CircleShip::circleTest(const sf::Shape &shape1, const sf::Shape &shape2)
+{
+    sf::Vector2f obj1Size = getShapeSize(shape1);
+    sf::Vector2f obj2Size = getShapeSize(shape2);
+
+    float radius1 = (obj1Size.x + obj1Size.y) / 4;
+    float radius2 = (obj2Size.x + obj2Size.y) / 4;
+
+    sf::Vector2f distance = getShapeCenter(shape1) - getShapeCenter(shape2);
+
+    return (distance.x * distance.x + distance.y * distance.y <=
+            (radius1 + radius2) * (radius1 + radius2));
+}
+//
