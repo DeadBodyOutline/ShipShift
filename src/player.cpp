@@ -108,7 +108,7 @@ void Player::receiveDamage(float damage, bool isShip)
     if (m_shipType == Rectangle) {
         RectangleShip *ship = static_cast<RectangleShip *>(m_currentShip);
         if (ship->charge())
-            damage *= 0.15;
+            damage *= 0.05;
     }
 
     if (m_shipType == Circle) {
