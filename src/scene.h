@@ -24,6 +24,8 @@ public:
     void addProjectile(Projectile *projectile);
     void addTimedEvent(TimedEvent *event);
     unsigned int currentWave() const { return m_waveController.currentWave(); }
+    float waveTime() const { return m_waveController.waveTime(); }
+    float waveTimeAcc() const { return m_waveController.waveTimeAcc(); }
 
 protected:
     Scene();

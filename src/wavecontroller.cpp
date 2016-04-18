@@ -10,16 +10,19 @@
 #include "smallenemy.h"
 #include "largeenemy.h"
 
+#include <iostream>
+
 WaveController::WaveController()
     : m_currentWave(0)
+    , m_timeToNewWave(30)
 {
 }
 
 void WaveController::update(float dt)
 {
-    m_timeToNewWave -= dt;
+    m_timeToNewWaveAcc -= dt;
 
-    if (m_timeToNewWave <= 0.f) {
+    if (m_timeToNewWaveAcc <= 0.f) {
         ++m_currentWave;
         spawnCluster();
     }
@@ -27,8 +30,6 @@ void WaveController::update(float dt)
 
 void WaveController::spawnCluster()
 {
-    m_timeToNewWave = 30.f; // 30 seconds for each wave. This value can be changed below in the spawn rules
-
     // The first waves shouls teach the player how to
     // play the game.
     // After the learning curve, the game clusters in waves will be
@@ -41,7 +42,7 @@ void WaveController::spawnCluster()
     } else if (m_currentWave == 3) {
         spawnLargeEnemyCluster();
     } else if (m_currentWave == 4) {
-        m_timeToNewWave = 40;
+        m_timeToNewWave = 45;
         spawnMediumEnemyCluster();
         spawnLargeEnemyCluster();
     } else if (m_currentWave == 5) {
@@ -56,6 +57,8 @@ void WaveController::spawnCluster()
         // so, game over :/
         Scene::instance()->player()->setHealth(0.f);
     }
+
+    m_timeToNewWaveAcc = m_timeToNewWave;
 }
 
 void WaveController::spawnMediumEnemyCluster()

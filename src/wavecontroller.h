@@ -14,10 +14,13 @@ public:
     void spawnSmallEnemyCluster();
     void spawnLargeEnemyCluster();
     unsigned int currentWave() const { return m_currentWave; }
+    float waveTime() const { return m_timeToNewWave; }
+    float waveTimeAcc() const { return m_timeToNewWaveAcc; }
 
 private:
-        unsigned int m_currentWave;
+    unsigned int m_currentWave;
     float m_timeToNewWave;
+    float m_timeToNewWaveAcc;
 };
 
 #endif // __WAVECONTROLLER_H__
