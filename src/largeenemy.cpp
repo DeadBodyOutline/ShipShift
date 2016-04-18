@@ -27,8 +27,10 @@ LargeEnemy::LargeEnemy(int width, int height)
 
 void LargeEnemy::attack()
 {
-    LaserProjectile *projectile = new LaserProjectile();
+    LaserProjectile *projectile = new LaserProjectile(5.0, 50);
     projectile->setColor(outlineColor());
+    projectile->setVelocity(1);
+    projectile->setDamage(45.f);
 
     projectile->setRotation(rotation());
 
