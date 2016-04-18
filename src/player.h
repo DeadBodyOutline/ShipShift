@@ -49,9 +49,9 @@ public:
     bool collideWith(Ship *ship = nullptr);
     bool collideWith(Projectile *projectile = nullptr);
 
-private:
     void revaluateVelocity();
 
+private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     Ship *m_currentShip;

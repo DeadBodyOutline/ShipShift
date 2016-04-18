@@ -17,8 +17,14 @@ public:
 
     void update(sf::Time delta = sf::Time::Zero);
 
-private:
+protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+protected:
+    bool m_stealth;
+    bool m_stealthEnabled;
+    float m_stealthTime;
+    float m_stealthCooldown;
 };
 
 #endif // __RECTANGLESHIP_H__
