@@ -27,6 +27,7 @@ public:
     float waveTime() const { return m_waveController.waveTime(); }
     float waveTimeAcc() const { return m_waveController.waveTimeAcc(); }
     void reset();
+    Ship *nearestEnemy();
 
 protected:
     Scene();

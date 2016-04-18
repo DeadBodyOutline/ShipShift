@@ -1,6 +1,8 @@
 #include "scene.h"
 #include "boid.h"
 
+#include <Thor/Vectors/VectorAlgebra2D.hpp>
+
 Scene::Scene()
 {
     m_player = new Player(20, 20);
@@ -141,4 +143,19 @@ void Scene::reset()
     m_player = new Player(20, 20);
     m_player->setPosition(800 / 2, 600 / 2);
     m_waveController.reset();
+}
+
+Ship *Scene::nearestEnemy()
+{
+    Ship *nearest = nullptr;
+    float minDist = 99999999999.f;
+    for (Ship *ship : m_ships) {
+        float dist = thor::length(m_player->position() - ship->position());
+        if (dist < minDist) {
+            minDist = dist;
+            nearest = ship;
+        }
+    }
+
+        return nearest;
 }
