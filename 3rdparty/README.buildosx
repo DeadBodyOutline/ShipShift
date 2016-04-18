@@ -1,0 +1,5 @@
+- Compile Thor:
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/thor -DSFML_ROOT=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/SFML -DTHOR_SHARED_LIBS=OFF -DSFML_INCLUDE_DIR=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/SFML/include ..
+
+- Compile game:
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/Volumes/home/rodrigo/GIT/DBO/ld35/LD35 -DSFML_ROOT=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/SFML -DSFML_INCLUDE_DIR=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/SFML/include -DTHOR_INCLUDE_DIR=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/thor/include -DTHOR_LIBRARY_RELEASE=/Volumes/home/rodrigo/GIT/DBO/ld35/DEPS/thor/lib/libthor-s.a ..
