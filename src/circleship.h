@@ -17,8 +17,16 @@ public:
 
     void update(sf::Time delta = sf::Time::Zero);
 
-private:
+protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+protected:
+    bool m_shieldUp;
+    float m_shieldDuration;
+    float m_shieldDurationAcc;
+    float m_shieldIncrease;
+    float m_shieldRadius;
+    sf::CircleShape m_shield;
 };
 
 #endif // __CIRCLESHIP_H__
