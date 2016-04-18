@@ -9,7 +9,7 @@ TriangleShip::TriangleShip(int width, int height)
     : Ship(width, height)
     , m_target(sf::Vector2i())
     , m_canShootAltAttack(true)
-    , m_cooldown(5.f)
+    , m_cooldown(2.f)
     , m_cooldownCounter(0.f)
 {
     m_ship = new sf::ConvexShape(3);
