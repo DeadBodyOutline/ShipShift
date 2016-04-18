@@ -108,6 +108,11 @@ Player::ShipType Player::shipType()
 
 void Player::receiveDamage(float damage)
 {
+    if (m_shipType == Rectangle) {
+        RectangleShip *ship = static_cast<RectangleShip *>(m_currentShip);
+        if (ship->charge())
+            damage *= 0.15;
+    }
     m_hull = std::max(0.f, m_hull - damage);
 }
 
