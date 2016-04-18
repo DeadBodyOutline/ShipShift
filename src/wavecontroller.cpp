@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <random>
+#include <cmath>
 
 #include "scene.h"
 #include "mediumenemy.h"
@@ -14,7 +15,7 @@
 
 WaveController::WaveController()
     : m_currentWave(0)
-    , m_timeToNewWave(20)
+    , m_timeToNewWave(30)
     , m_timeToNewWaveAcc(0.f)
 {
 }
@@ -37,33 +38,59 @@ void WaveController::spawnCluster()
     // randomized, with increased difficulty
 
     if (m_currentWave == 1) {
-        spawnMediumEnemyCluster();
+        spawnMediumEnemyCluster(m_currentWave);
     } else if (m_currentWave == 2) {
-        spawnSmallEnemyCluster();
+        spawnSmallEnemyCluster(m_currentWave);
     } else if (m_currentWave == 3) {
-        spawnLargeEnemyCluster();
+        spawnLargeEnemyCluster(m_currentWave);
     } else if (m_currentWave == 4) {
         m_timeToNewWave = 30;
-        spawnMediumEnemyCluster();
-        spawnLargeEnemyCluster();
+        spawnMediumEnemyCluster(m_currentWave);
+        spawnLargeEnemyCluster(m_currentWave);
     } else if (m_currentWave == 5) {
-        spawnSmallEnemyCluster();
-        spawnLargeEnemyCluster();
+        spawnSmallEnemyCluster(m_currentWave);
+        spawnLargeEnemyCluster(m_currentWave);
     } else if (m_currentWave == 6) {
-        spawnSmallEnemyCluster();
-        spawnMediumEnemyCluster();
+        spawnSmallEnemyCluster(m_currentWave);
+        spawnMediumEnemyCluster(m_currentWave);
     } else {
-        // TODO: the game is supposed to be infinite,
-        // but we couldn't get it done in time for ludumdare
-        // so, game over :/
-        Scene::instance()->player()->setHealth(0.f);
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> firstDis(0, 3);
+        std::uniform_int_distribution<> secDis(0, 1);
+
+        int shipType = firstDis(gen);
+        if (shipType == 0) {
+            spawnMediumEnemyCluster(m_currentWave);
+            shipType = secDis(gen);
+            if (shipType == 0)
+                spawnSmallEnemyCluster(m_currentWave);
+            else
+                spawnLargeEnemyCluster(m_currentWave);
+        } else if (shipType == 1) {
+            spawnSmallEnemyCluster(m_currentWave);
+            shipType = secDis(gen);
+            if (shipType == 0)
+                spawnMediumEnemyCluster(m_currentWave);
+            else
+                spawnLargeEnemyCluster(m_currentWave);
+        }
+        else if (shipType == 2) {
+            spawnLargeEnemyCluster(m_currentWave);
+            shipType = secDis(gen);
+            if (shipType == 0)
+                spawnMediumEnemyCluster(m_currentWave);
+            else
+                spawnSmallEnemyCluster(m_currentWave);
+        }
     }
 
     m_timeToNewWaveAcc = m_timeToNewWave;
 }
 
-void WaveController::spawnMediumEnemyCluster()
+void WaveController::spawnMediumEnemyCluster(float wave)
 {
+    int numEnemies = 1 + (int)(wave * std::log(wave));
     Scene *scene = Scene::instance();
     sf::RenderWindow *game = scene->game();
     Player *player = scene->player();
@@ -77,7 +104,7 @@ void WaveController::spawnMediumEnemyCluster()
     std::uniform_real_distribution<> spawnDis(20.f, 300.f);
     std::uniform_real_distribution<> fireDis(2.f, 5.f);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < numEnemies; ++i) {
         MediumEnemy *enemy = new MediumEnemy(20, 20);
         enemy->setPosition(wDis(gen), hDis(gen));
         // don't spawn enemies too close to the player
@@ -99,8 +126,9 @@ void WaveController::spawnMediumEnemyCluster()
     }
 }
 
-void WaveController::spawnSmallEnemyCluster()
+void WaveController::spawnSmallEnemyCluster(float wave)
 {
+    int numEnemies = (int)(wave * wave);
     Scene *scene = Scene::instance();
     sf::RenderWindow *game = scene->game();
     Player *player = scene->player();
@@ -114,7 +142,7 @@ void WaveController::spawnSmallEnemyCluster()
     // every enemy will spawn offscreen
     float spawnDistance = std::max<float>(size.x, size.y) + 10.f;
 
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < numEnemies; ++i) {
         SmallEnemy *enemy = new SmallEnemy(7, 7);
         enemy->setPosition(wDis(gen), hDis(gen));
         sf::Vector2f desired = player->position() - enemy->position();
@@ -132,8 +160,9 @@ void WaveController::spawnSmallEnemyCluster()
     }
 }
 
-void WaveController::spawnLargeEnemyCluster()
+void WaveController::spawnLargeEnemyCluster(float wave)
 {
+    int numEnemies = (int)std::log(wave);
     Scene *scene = Scene::instance();
     sf::RenderWindow *game = scene->game();
     Player *player = scene->player();
@@ -147,7 +176,7 @@ void WaveController::spawnLargeEnemyCluster()
     std::uniform_real_distribution<> spawnDis(20.f, 50.f);
     std::uniform_real_distribution<> fireDis(8.f, 10.f);
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < numEnemies; ++i) {
         LargeEnemy *enemy = new LargeEnemy(50, 50);
         enemy->setPosition(wDis(gen), hDis(gen));
         float spawnDistance = 200.f + spawnDis(gen);

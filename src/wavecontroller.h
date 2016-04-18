@@ -10,9 +10,9 @@ public:
     WaveController();
     void update(float dt);
     void spawnCluster();
-    void spawnMediumEnemyCluster();
-    void spawnSmallEnemyCluster();
-    void spawnLargeEnemyCluster();
+    void spawnMediumEnemyCluster(float wave);
+    void spawnSmallEnemyCluster(float wave);
+    void spawnLargeEnemyCluster(float wave);
     void reset();
     unsigned int currentWave() const { return m_currentWave; }
     float waveTime() const { return m_timeToNewWave; }
