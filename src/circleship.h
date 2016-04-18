@@ -27,6 +27,7 @@ public:
 
     float shieldDuration() const { return m_shieldDuration; }
     float shieldEnergy() const { return m_shieldDurationAcc; }
+    bool shieldUp() const { return m_shieldUp; }
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
