@@ -73,12 +73,12 @@ void CircleShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
     Ship::draw(target, states);
 }
 
-bool CircleShip::collideWith(sf::Shape *shape)
+bool CircleShip::collideWith(sf::Shape *shape, bool ship)
 {
     if (!shape)
         return false;
 
-    return (m_shieldUp)
+    return (m_shieldUp && !ship)
         ? circleTest(m_shield, *shape)
         : circleTest(*m_ship, *shape);
 }

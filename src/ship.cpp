@@ -235,7 +235,7 @@ sf::Shape *Ship::shape()
     return m_ship;
 }
 
-bool Ship::collideWith(sf::Shape *shape)
+bool Ship::collideWith(sf::Shape *shape, bool ship)
 {
     if (!shape)
         return false;

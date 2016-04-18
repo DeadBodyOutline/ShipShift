@@ -15,7 +15,7 @@ public:
     void attack();
     void altAttack();
 
-    bool collideWith(sf::Shape *shape = nullptr);
+    bool collideWith(sf::Shape *shape = nullptr, bool ship = false);
     // code based on
     // https://github.com/SFML/SFML/wiki/Source:-Simple-Collision-Detection-for-SFML-2
     sf::Vector2f getShapeCenter(const sf::Shape &shape);

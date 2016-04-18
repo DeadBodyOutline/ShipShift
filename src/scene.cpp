@@ -88,7 +88,7 @@ void Scene::checkCollisions()
 {
     bool collide = false;
     for (auto ship: m_ships) {
-        collide = m_player->collideWith(ship);
+        collide = m_player->collideWith(ship, true);
 
         if (collide) {
             Boid *boid = dynamic_cast<Boid *>(ship);
@@ -96,7 +96,7 @@ void Scene::checkCollisions()
                 continue;
 
             boid->markForDeletion();
-            m_player->receiveDamage(boid->damage());
+            m_player->receiveDamage(boid->damage(), true);
         }
     }
 

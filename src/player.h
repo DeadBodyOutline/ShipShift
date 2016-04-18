@@ -35,7 +35,7 @@ public:
     void changeShipType(ShipType type);
     ShipType shipType();
 
-    void receiveDamage(float damage);
+    void receiveDamage(float damage, bool isShip = false);
     void setHealth(float health);
     float health() const;
     float totalHealth() const;
@@ -47,7 +47,7 @@ public:
     void update(float delta);
     void update(sf::Time delta = sf::Time::Zero);
 
-    bool collideWith(Ship *ship = nullptr);
+    bool collideWith(Ship *ship = nullptr, bool isShip = false);
     bool collideWith(Projectile *projectile = nullptr);
 
     void revaluateVelocity();

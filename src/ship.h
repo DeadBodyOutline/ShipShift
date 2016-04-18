@@ -56,7 +56,7 @@ public:
     float angle() const { return m_angle; }
 
     virtual sf::Shape *shape();
-    virtual bool collideWith(sf::Shape *shape = nullptr);
+    virtual bool collideWith(sf::Shape *shape = nullptr, bool ship = false);
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

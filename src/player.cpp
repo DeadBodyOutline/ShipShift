@@ -106,7 +106,7 @@ Player::ShipType Player::shipType()
     return m_shipType;
 }
 
-void Player::receiveDamage(float damage)
+void Player::receiveDamage(float damage, bool isShip)
 {
     if (m_shipType == Rectangle) {
         RectangleShip *ship = static_cast<RectangleShip *>(m_currentShip);
@@ -116,7 +116,7 @@ void Player::receiveDamage(float damage)
 
     if (m_shipType == Circle) {
         CircleShip *ship = static_cast<CircleShip *>(m_currentShip);
-        if (ship->shieldUp())
+        if (ship->shieldUp() && !isShip)
             damage *= 0;
     }
 
@@ -186,12 +186,12 @@ void Player::update(sf::Time delta)
     }
 }
 
-bool Player::collideWith(Ship *ship)
+bool Player::collideWith(Ship *ship, bool isShip)
 {
     if (!ship)
         return false;
 
-    return m_currentShip->collideWith(ship->shape());
+    return m_currentShip->collideWith(ship->shape(), isShip);
 }
 
 bool Player::collideWith(Projectile *projectile)
