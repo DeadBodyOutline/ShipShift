@@ -368,6 +368,7 @@ int main()
                 scene->update(dt);
             else {
                 splashTime -= dt;
+                dboSprite.setColor(sf::Color(255, 255, 255, 255 * splashTime));
                 if (splashTime <= 0.f)
                     gameStarted = true;
             }
@@ -401,6 +402,7 @@ int main()
         } else {
             renderWindow.draw(getGameOverText(renderWindow, font));
             renderWindow.draw(getRetryText(renderWindow, font));
+            renderWindow.draw(getWaveText(font, scene->currentWave()));
         }
 
         renderWindow.display();
