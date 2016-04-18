@@ -229,7 +229,7 @@ int main()
     float previousUpdateTime = deltaClock.getElapsedTime().asSeconds();
     float accumulator = 0.f;
 
-    Player player(50, 50);
+    Player player(20, 20);
     player.setPosition(800 / 2, 600 / 2);
 
     Scene *scene = Scene::instance();
