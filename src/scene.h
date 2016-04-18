@@ -28,6 +28,8 @@ public:
     float waveTimeAcc() const { return m_waveController.waveTimeAcc(); }
     void reset();
     Ship *nearestEnemy();
+    void addScore(unsigned score) { m_score += score; }
+    unsigned long long score() const { return m_score; };
 
 protected:
     Scene();
@@ -40,6 +42,7 @@ protected:
     std::vector<Ship *> m_ships;
     std::vector<Projectile *> m_projectiles;
     std::vector<TimedEvent *> m_events;
+    unsigned long long m_score;
 
 private:
     void checkCollisions();

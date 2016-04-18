@@ -4,6 +4,7 @@
 #include <Thor/Vectors/VectorAlgebra2D.hpp>
 
 Scene::Scene()
+    : m_score(0)
 {
     m_player = new Player(20, 20);
     m_player->setPosition(800 / 2, 600 / 2);
@@ -102,6 +103,7 @@ void Scene::checkCollisions()
 
             boid->markForDeletion();
             m_player->receiveDamage(boid->damage(), true);
+            addScore(boid->damage());
         }
     }
 
@@ -115,8 +117,11 @@ void Scene::checkCollisions()
                     projectile->markForDeletion();
 
                     Boid *boid = dynamic_cast<Boid *>(ship);
-                    if (boid)
+                    if (boid) {
                         boid->receiveDamage(projectile->damage());
+                        if (boid->markedForDeletion())
+                            addScore(boid->damage());
+                    }
 
                     break;
                 }
@@ -133,6 +138,7 @@ void Scene::checkCollisions()
 
 void Scene::reset()
 {
+    m_score = 0;
     for (auto i = m_ships.begin(); i != m_ships.end();)
         i = m_ships.erase(i);
     for (auto i = m_projectiles.begin(); i != m_projectiles.end();)

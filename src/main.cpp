@@ -26,6 +26,19 @@ sf::Text getWaveText(sf::Font &font, unsigned int wave)
     return text;
 }
 
+sf::Text getScoreText(sf::Font &font, unsigned long long score)
+{
+    sf::Text text;
+    text.setFont(font);
+    std::ostringstream stringStream;
+    stringStream << "Score: " << score;
+    text.setString(stringStream.str());
+    text.setPosition(10.f, 30.f);
+    text.setCharacterSize(15);
+    text.setColor(sf::Color::White);
+    return text;
+}
+
 sf::Text getGameOverText(sf::RenderWindow &game, sf::Font &font)
 {
     sf::Text text;
@@ -364,9 +377,10 @@ int main()
         sf::Vector2f movement;
         while (accumulator >= dt) {
             accumulator -= dt;
-            if (gameStarted)
-                scene->update(dt);
-            else {
+            if (gameStarted) {
+                if (!gameOver)
+                    scene->update(dt);
+            } else {
                 splashTime -= dt;
                 dboSprite.setColor(sf::Color(255, 255, 255, 255 * splashTime));
                 if (splashTime <= 0.f)
@@ -404,6 +418,7 @@ int main()
             renderWindow.draw(getRetryText(renderWindow, font));
             renderWindow.draw(getWaveText(font, scene->currentWave()));
         }
+        renderWindow.draw(getScoreText(font, scene->score()));
 
         renderWindow.display();
     }
