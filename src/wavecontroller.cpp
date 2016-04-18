@@ -50,14 +50,11 @@ void WaveController::spawnCluster()
     } else if (m_currentWave == 6) {
         spawnSmallEnemyCluster();
         spawnMediumEnemyCluster();
-    }
-
-    // ...
-    else if (m_currentWave == 7) {
-        // TODO: maybe from wave 6 to 10, spawn mixed waves, changing enemy attributes to
-        // increase difficulty
     } else {
-       // TODO: after this point, spawn random mixed waves, increasing difficulty
+        // TODO: the game is supposed to be infinite,
+        // but we couldn't get it done in time for ludumdare
+        // so, game over :/
+        Scene::instance()->player()->setHealth(0.f);
     }
 }
 
