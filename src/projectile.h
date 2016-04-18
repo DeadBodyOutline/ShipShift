@@ -5,6 +5,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System.hpp>
 
+#include <cmath>
+
 class Projectile : public sf::Drawable
 {
 public:

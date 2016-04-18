@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "smallenemy.h"
 
 #include "scene.h"

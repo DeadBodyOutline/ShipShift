@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "largeenemy.h"
 
 #include "scene.h"

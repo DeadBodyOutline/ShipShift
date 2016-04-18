@@ -1,7 +1,8 @@
-#include "boid.h"
-
 #include <Thor/Vectors/VectorAlgebra2D.hpp>
 #include <cmath>
+#include <random>
+
+#include "boid.h"
 #include "stuffmath.h"
 #include "scene.h"
 

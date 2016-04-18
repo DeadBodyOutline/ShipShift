@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "triangleship.h"
 #include "stuffmath.h"
 

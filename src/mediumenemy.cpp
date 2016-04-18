@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "mediumenemy.h"
 
 #include "scene.h"
