@@ -6,9 +6,9 @@
 CircleShip::CircleShip(int radius)
     : Ship(radius, radius)
     , m_shieldUp(false)
-    , m_shieldDuration(5.f)
-    , m_shieldDurationAcc(5.f)
-    , m_shieldIncrease(0.001)
+    , m_shieldDuration(1.5f)
+    , m_shieldDurationAcc(1.5f)
+    , m_shieldIncrease(0.005)
     , m_shieldRadius(radius * 3.f)
 {
     m_ship = new sf::CircleShape(radius);
@@ -52,7 +52,7 @@ void CircleShip::update(sf::Time delta)
             Scene::instance()->player()->setCanSwitchShip(true);
         }
     } else {
-        m_shieldDurationAcc += delta.asSeconds();
+        m_shieldDurationAcc += m_shieldIncrease;
         if (m_shieldDurationAcc >= m_shieldDuration)
             m_shieldDurationAcc = m_shieldDuration;
     }
