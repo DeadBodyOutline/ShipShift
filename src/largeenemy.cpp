@@ -7,7 +7,7 @@
 LargeEnemy::LargeEnemy(int width, int height)
     : Boid(width, height)
 {
-    m_ship = new sf::ConvexShape(4);
+    m_ship = new sf::CircleShape(width, 8);
 
     setColor(0, 0, 0);
     setOutlineThickness(2);

@@ -148,7 +148,7 @@ void WaveController::spawnLargeEnemyCluster()
     std::uniform_real_distribution<> fireDis(8.f, 10.f);
 
     for (int i = 0; i < 4; ++i) {
-        LargeEnemy *enemy = new LargeEnemy(40, 50);
+        LargeEnemy *enemy = new LargeEnemy(50, 50);
         enemy->setPosition(wDis(gen), hDis(gen));
         float spawnDistance = 200.f + spawnDis(gen);
         sf::Vector2f desired = player->position() - enemy->position();
