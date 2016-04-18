@@ -40,7 +40,7 @@ void MediumEnemy::attack()
     LaserProjectile *projectile = new LaserProjectile();
     projectile->setColor(outlineColor());
     projectile->setDamage(15.f);
-    projectile->setVelocity(2);
+    projectile->setVelocity(1.5f);
 
     projectile->setRotation(rotation());
 
