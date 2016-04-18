@@ -63,6 +63,18 @@ sf::Text getRetryText(sf::RenderWindow &game, sf::Font &font)
     return text;
 }
 
+sf::Text getDboText(sf::RenderWindow &game, sf::Font &font)
+{
+    sf::Text text;
+    text.setFont(font);
+    std::ostringstream stringStream;
+    text.setString("Dead Body Outline");
+    text.setPosition(140.f, game.getSize().y / 2.f + 150.f);
+    text.setCharacterSize(30);
+    text.setColor(sf::Color::White);
+    return text;
+}
+
 sf::Text getShipText(sf::RenderWindow &game, sf::Font &font, unsigned int wave)
 {
     sf::Text text;
@@ -391,6 +403,7 @@ int main()
         if (!gameStarted) {
             renderWindow.clear(backgroundColor);
             renderWindow.draw(dboSprite);
+            renderWindow.draw(getDboText(renderWindow, font));
             renderWindow.display();
             continue;
         }
