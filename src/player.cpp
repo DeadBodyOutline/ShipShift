@@ -105,6 +105,11 @@ void Player::receiveDamage(float damage)
     m_hull = std::max(0.f, m_hull - damage);
 }
 
+void Player::setHealth(float health)
+{
+    m_hull = health;
+}
+
 float Player::health() const
 {
     return m_hull;

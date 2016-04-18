@@ -36,6 +36,7 @@ public:
     ShipType shipType();
 
     void receiveDamage(float damage);
+    void setHealth(float health);
     float health() const;
 
     void setPosition(int x, int y);

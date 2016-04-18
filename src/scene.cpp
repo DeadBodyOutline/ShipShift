@@ -99,13 +99,27 @@ void Scene::checkCollisions()
     }
 
     for (auto projectile: m_projectiles) {
-        if (projectile->playerProjectile())
-            continue;
+        if (projectile->playerProjectile()) {
+            // NOOOOOOOOOOOOoo--
+            // ¯\_(ツ)_/¯
+            for (auto ship: m_ships) {
+                collide = ship->collideWith(projectile->shape());
+                if (collide) {
+                    projectile->markForDeletion();
 
-        collide = m_player->collideWith(projectile);
-        if (collide) {
-            projectile->markForDeletion();
-            m_player->receiveDamage(projectile->damage());
+                    Boid *boid = dynamic_cast<Boid *>(ship);
+                    if (boid)
+                        boid->receiveDamage(projectile->damage());
+
+                    break;
+                }
+            }
+        } else {
+            collide = m_player->collideWith(projectile);
+            if (collide) {
+                projectile->markForDeletion();
+                m_player->receiveDamage(projectile->damage());
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ Boid::Boid(int width, int height)
     , m_fireTimeAcc(0.f)
     , m_damage(5.f)
     , m_markedForDeletion(false)
+    , m_hull(10.f)
 {
     m_player = Scene::instance()->player();
     m_game = Scene::instance()->game();
@@ -104,4 +105,22 @@ void Boid::setDamage(float damage)
 float Boid::damage() const
 {
     return m_damage;
+}
+
+void Boid::receiveDamage(float damage)
+{
+    m_hull = std::max(0.f, m_hull - damage);
+
+    if (m_hull == 0)
+        m_markedForDeletion = true;
+}
+
+void Boid::setHealth(float health)
+{
+    m_hull = health;
+}
+
+float Boid::health() const
+{
+    return m_hull;
 }

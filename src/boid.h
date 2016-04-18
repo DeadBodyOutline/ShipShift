@@ -25,6 +25,10 @@ public:
     void setDamage(float damage);
     float damage() const;
 
+    void receiveDamage(float damage);
+    void setHealth(float health);
+    float health() const;
+
 protected:
     sf::Vector2f m_boidVelocity;
     sf::Vector2f m_boidAcceleration;
@@ -41,6 +45,7 @@ protected:
 
 private:
     bool m_markedForDeletion;
+    float m_hull;
 };
 
 #endif // __BOID_H__
