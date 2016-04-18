@@ -117,7 +117,7 @@ void drawTriangleShipInfo(sf::RenderWindow &game, sf::Font &font)
 
     sf::Text text;
     text.setFont(font);
-    text.setString("Missile Cooldown");
+    text.setString("Nova Cooldown");
     sf::Vector2f textPos(game.getSize().x - cooldownBar.getSize().x - 10.f,
                          game.getSize().y - 30.f);
     textPos.x -= cooldownBar.getSize().x + 180.f;
