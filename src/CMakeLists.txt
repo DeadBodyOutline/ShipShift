@@ -24,15 +24,12 @@ endif()
 
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/animatedsprite.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/animation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/boid.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/circleprojectile.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/mediumenemy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/smallenemy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/largeenemy.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/stuffmath.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ship.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/scene.cpp
