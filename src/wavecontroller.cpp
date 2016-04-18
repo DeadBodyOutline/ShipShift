@@ -41,15 +41,22 @@ void WaveController::spawnCluster()
     } else if (m_currentWave == 3) {
         spawnLargeEnemyCluster();
     } else if (m_currentWave == 4) {
-        // TODO: maybe from wave 4 to 6, spawn some mixed waves
         m_timeToNewWave = 40;
+        spawnMediumEnemyCluster();
+        spawnLargeEnemyCluster();
+    } else if (m_currentWave == 5) {
+        spawnSmallEnemyCluster();
+        spawnLargeEnemyCluster();
+    } else if (m_currentWave == 6) {
+        spawnSmallEnemyCluster();
+        spawnMediumEnemyCluster();
     }
+
     // ...
-    else if (m_currentWave == 4) {
+    else if (m_currentWave == 7) {
         // TODO: maybe from wave 6 to 10, spawn mixed waves, changing enemy attributes to
         // increase difficulty
     } else {
-        m_timeToNewWave = 45;
        // TODO: after this point, spawn random mixed waves, increasing difficulty
     }
 }
@@ -86,6 +93,7 @@ void WaveController::spawnMediumEnemyCluster()
         enemy->setWanderTime(wanderDis(gen));
         enemy->setFireTime(fireDis(gen));
         enemy->setDamage(30.f);
+        enemy->setHealth(20);
         scene->addShip(static_cast<Ship *>(enemy));
     }
 }
@@ -153,6 +161,7 @@ void WaveController::spawnLargeEnemyCluster()
         enemy->setMaxAcceleration(0.01f);
         enemy->setWanderTime(wanderDis(gen));
         enemy->setFireTime(fireDis(gen));
+        enemy->setHealth(100);
         scene->addShip(static_cast<Ship *>(enemy));
     }
 }
