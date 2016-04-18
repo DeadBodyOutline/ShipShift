@@ -43,6 +43,8 @@ public:
     virtual void setDamage(float damage) { m_damage = damage; }
     virtual float damage() const;
 
+    void setVelocity(float velocity) { m_velocity = velocity; }
+
     virtual void update(sf::Time delta = sf::Time::Zero);
 
     virtual sf::Shape *shape();

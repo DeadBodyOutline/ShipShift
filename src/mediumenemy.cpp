@@ -39,6 +39,8 @@ void MediumEnemy::attack()
         return;
     LaserProjectile *projectile = new LaserProjectile();
     projectile->setColor(outlineColor());
+    projectile->setDamage(15.f);
+    projectile->setVelocity(2);
 
     projectile->setRotation(rotation());
 

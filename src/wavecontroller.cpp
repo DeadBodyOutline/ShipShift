@@ -85,6 +85,7 @@ void WaveController::spawnMediumEnemyCluster()
         enemy->setMaxAcceleration(0.01f);
         enemy->setWanderTime(wanderDis(gen));
         enemy->setFireTime(fireDis(gen));
+        enemy->setDamage(30.f);
         scene->addShip(static_cast<Ship *>(enemy));
     }
 }
