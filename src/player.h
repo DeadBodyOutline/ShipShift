@@ -51,6 +51,8 @@ public:
 
     void revaluateVelocity();
 
+    void setCanSwitchShip(bool canSwitch);
+
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -64,6 +66,8 @@ private:
     sf::Vector2f m_targetPos;
 
     float m_hull;
+
+    bool m_canSwitchShip;
 };
 
 #endif // __PLAYER_H__

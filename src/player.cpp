@@ -8,6 +8,7 @@ Player::Player(int width, int height)
     , m_currentShip(nullptr)
     , m_step(10.f)
     , m_hull(100.f)
+    , m_canSwitchShip(true)
 {
     // eeehhhhhhhhh....
     TriangleShip *m_triangleShip = new TriangleShip(width, height);
@@ -74,6 +75,9 @@ void Player::rotate(int x, int y)
 
 void Player::changeShipType(ShipType type)
 {
+    if (!m_canSwitchShip)
+        return;
+
     m_shipType = type;
 
     sf::Vector2f currPos = sf::Vector2f();
@@ -196,4 +200,9 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
     for (auto ship : m_ships) {
         target.draw(*ship.second);
     }
+}
+
+void Player::setCanSwitchShip(bool canSwitch)
+{
+    m_canSwitchShip = canSwitch;
 }

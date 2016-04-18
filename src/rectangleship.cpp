@@ -42,6 +42,7 @@ void RectangleShip::altAttack()
     setVelModifier(3.f);
     setMaxVelocity(300.f);
     Scene::instance()->player()->revaluateVelocity();
+    Scene::instance()->player()->setCanSwitchShip(false);
 
     TimedEvent *stealthTime = new TimedEvent(m_stealthTime, m_stealthCooldown);
     stealthTime->onTrigger([&]() {
@@ -52,6 +53,7 @@ void RectangleShip::altAttack()
         setVelModifier(.5f);
         setMaxVelocity(50.f);
         Scene::instance()->player()->revaluateVelocity();
+        Scene::instance()->player()->setCanSwitchShip(true);
     });
 
     stealthTime->onFinish([&]() {

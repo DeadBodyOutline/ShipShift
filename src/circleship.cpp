@@ -1,5 +1,8 @@
 #include "circleship.h"
 
+#include "player.h"
+#include "scene.h"
+
 CircleShip::CircleShip(int radius)
     : Ship(radius, radius)
     , m_shieldUp(false)
@@ -37,14 +40,17 @@ void CircleShip::altAttack()
     if (m_shieldDurationAcc <= 0)
         return;
     m_shieldUp = true;
+    Scene::instance()->player()->setCanSwitchShip(false);
 }
 
 void CircleShip::update(sf::Time delta)
 {
     if (m_shieldUp) {
         m_shieldDurationAcc -= delta.asSeconds();
-        if (m_shieldDurationAcc <= 0)
+        if (m_shieldDurationAcc <= 0) {
             m_shieldUp = false;
+            Scene::instance()->player()->setCanSwitchShip(true);
+        }
     } else {
         m_shieldDurationAcc += delta.asSeconds();
         if (m_shieldDurationAcc >= m_shieldDuration)
