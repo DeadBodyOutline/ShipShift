@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 
 #include "projectile.h"
+#include "ship.h"
 
 class GuidedProjectile : public Projectile
 {
@@ -13,7 +14,7 @@ public:
     GuidedProjectile(int width = 8, int height = 40);
     virtual ~GuidedProjectile();
 
-    void setTarget(sf::Vector2f target);
+    void setTarget(Ship *target);
 
     void update(sf::Time delta = sf::Time::Zero);
 
@@ -21,7 +22,7 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-    sf::Vector2f m_target;
+    Ship *m_target;
 };
 
 #endif // __GUIDEDPROJECTILE_H__

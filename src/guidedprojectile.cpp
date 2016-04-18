@@ -3,15 +3,9 @@
 
 GuidedProjectile::GuidedProjectile(int width, int height)
     : Projectile(width, height)
-    , m_target(sf::Vector2f())
+    , m_target(nullptr)
 {
-    m_projectile = new sf::ConvexShape(4);
-
-    sf::ConvexShape *shape = dynamic_cast<sf::ConvexShape *>(m_projectile);
-    shape->setPoint(0, sf::Vector2f(0, 0));
-    shape->setPoint(1, sf::Vector2f(m_width / 2, -m_height / 5));
-    shape->setPoint(2, sf::Vector2f(m_width, 0));
-    shape->setPoint(3, sf::Vector2f(m_width / 2, (m_height / 5) * 4));
+    m_projectile = new sf::CircleShape(width);
 
     // XXX
     m_projectile->setOrigin(width / 2, -height / 2);
@@ -27,9 +21,8 @@ GuidedProjectile::~GuidedProjectile()
 
 void GuidedProjectile::update(sf::Time delta)
 {
-    // TODO use m_target
-    float angle = r2d(rotation() - 90);
-
+    sf::Vector2f v = m_target->position() - position();
+    float angle = atan2f(v.y, v.x);
     float newX = cos(angle) * m_velocity;
     float newY = sin(angle) * m_velocity;
     move(newX, newY);
@@ -43,4 +36,9 @@ void GuidedProjectile::draw(sf::RenderTarget& target, sf::RenderStates states) c
         return;
 
     target.draw(*m_projectile);
+}
+
+void GuidedProjectile::setTarget(Ship *target)
+{
+    m_target = target;
 }

@@ -12,7 +12,6 @@ public:
     TriangleShip(int width = 50, int height = 50);
 
     void attack();
-    void setTarget(sf::Vector2i target);
     void altAttack();
 
     void update(sf::Time delta = sf::Time::Zero);

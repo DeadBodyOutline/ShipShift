@@ -48,26 +48,23 @@ void TriangleShip::attack()
     Scene::instance()->addProjectile(projectile);
 }
 
-void TriangleShip::setTarget(sf::Vector2i target)
-{
-    m_target = target;
-}
-
 void TriangleShip::altAttack()
 {
     if (!m_canShootAltAttack)
         return;
 
+    Ship *nearest = Scene::instance()->nearestEnemy();
+    if (!nearest)
+        return;
+
     m_canShootAltAttack = false;
 
-    GuidedProjectile *projectile = new GuidedProjectile();
+    GuidedProjectile *projectile = new GuidedProjectile(8);
     projectile->setPlayerProjectile(true);
-    projectile->setColor(outlineColor());
+    projectile->setColor(sf::Color(255, 165, 0));
     projectile->setRotation(rotation());
-
-    // TODO
-    //if (m_target != sf::Vector2i())
-        // use it to seek target
+    projectile->setTarget(nearest);
+    projectile->setDamage(50.f);
 
     float angle = r2d(rotation() - 90);
 
