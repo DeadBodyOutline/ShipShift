@@ -26,6 +26,18 @@ sf::Text getWaveText(sf::Font &font, unsigned int wave)
     return text;
 }
 
+sf::Text getGameOverText(sf::RenderWindow &game, sf::Font &font)
+{
+    sf::Text text;
+    text.setFont(font);
+    std::ostringstream stringStream;
+    text.setString("GAME OVER");
+    text.setPosition(200.f, game.getSize().y / 2.f - 50.f);
+    text.setCharacterSize(50);
+    text.setColor(sf::Color::White);
+    return text;
+}
+
 sf::Text getShipText(sf::RenderWindow &game, sf::Font &font, unsigned int wave)
 {
     sf::Text text;
@@ -291,20 +303,25 @@ int main()
             scene->update(dt);
         }
 
+        bool gameOver = scene->player()->health() <= 0.f;
+
         renderWindow.clear();
-        scene->draw();
-        renderWindow.draw(getWaveText(font, scene->currentWave()));
-        renderWindow.draw(getShipText(renderWindow, font, scene->currentWave()));
-        Player::ShipType type = Scene::instance()->player()->shipType();
+        if (!gameOver) {
+            scene->draw();
+            renderWindow.draw(getWaveText(font, scene->currentWave()));
+            renderWindow.draw(getShipText(renderWindow, font, scene->currentWave()));
+            Player::ShipType type = Scene::instance()->player()->shipType();
 
-        if (type == Player::Triangle)
-            drawTriangleShipInfo(renderWindow, font);
-        else if (type == Player::Rectangle)
-            drawRectangleShipInfo(renderWindow, font);
-        else if (type == Player::Circle)
-            drawCircleShipInfo(renderWindow, font);
+            if (type == Player::Triangle)
+                drawTriangleShipInfo(renderWindow, font);
+            else if (type == Player::Rectangle)
+                drawRectangleShipInfo(renderWindow, font);
+            else if (type == Player::Circle)
+                drawCircleShipInfo(renderWindow, font);
 
-         drawPlayerHealth(renderWindow, font);
+            drawPlayerHealth(renderWindow, font);
+        } else
+            renderWindow.draw(getGameOverText(renderWindow, font));
 
         renderWindow.display();
     }
