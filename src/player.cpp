@@ -8,6 +8,7 @@ Player::Player(int width, int height)
     , m_currentShip(nullptr)
     , m_step(10.f)
     , m_hull(100.f)
+    , m_totalHull(100.f)
     , m_canSwitchShip(true)
 {
     // eeehhhhhhhhh....
@@ -118,6 +119,11 @@ void Player::setHealth(float health)
 float Player::health() const
 {
     return m_hull;
+}
+
+float Player::totalHealth() const
+{
+    return m_totalHull;
 }
 
 void Player::setPosition(int x, int y)

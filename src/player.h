@@ -38,6 +38,7 @@ public:
     void receiveDamage(float damage);
     void setHealth(float health);
     float health() const;
+    float totalHealth() const;
 
     void setPosition(int x, int y);
     void setPosition(sf::Vector2f point);
@@ -68,6 +69,7 @@ private:
     sf::Vector2f m_targetPos;
 
     float m_hull;
+    float m_totalHull;
 
     bool m_canSwitchShip;
 };

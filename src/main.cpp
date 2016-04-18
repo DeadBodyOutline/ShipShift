@@ -180,6 +180,43 @@ void drawCircleShipInfo(sf::RenderWindow &game, sf::Font &font)
     game.draw(text);
 }
 
+void drawPlayerHealth(sf::RenderWindow &game, sf::Font &font)
+{
+    sf::RectangleShape cooldownBar(sf::Vector2f(100.f, 10.f));
+    cooldownBar.setFillColor(sf::Color(255, 0, 0));
+    cooldownBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownBar.setOutlineThickness(3);
+
+
+    float cooldown = Scene::instance()->player()->totalHealth();
+    float cooldownCounter = Scene::instance()->player()->health();
+
+    float value = 1.f;
+    if (cooldownCounter > 0.f)
+        value = cooldownCounter / cooldown;
+
+    sf::RectangleShape cooldownValueBar(sf::Vector2f(cooldownBar.getSize().x * value, 10.f));
+    cooldownValueBar.setFillColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineThickness(3);
+
+    sf::Vector2f pos(game.getSize().x - cooldownBar.getSize().x - 10.f, 13.f);
+    cooldownBar.setPosition(pos);
+    cooldownValueBar.setPosition(pos);
+    game.draw(cooldownBar);
+    game.draw(cooldownValueBar);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Ship Health");
+    sf::Vector2f textPos(game.getSize().x - cooldownBar.getSize().x - 10.f, 10.f);
+    textPos.x -= cooldownBar.getSize().x + 140.f;
+    text.setPosition(textPos);
+    text.setCharacterSize(15);
+    text.setColor(sf::Color::White);
+    game.draw(text);
+}
+
 int main()
 {
     sf::Font font;
@@ -266,6 +303,8 @@ int main()
             drawRectangleShipInfo(renderWindow, font);
         else if (type == Player::Circle)
             drawCircleShipInfo(renderWindow, font);
+
+         drawPlayerHealth(renderWindow, font);
 
         renderWindow.display();
     }
