@@ -68,6 +68,7 @@ void Player::deacelerate()
 
 void Player::rotate(int x, int y)
 {
+    m_targetPos = sf::Vector2f(x, y);
     m_currentShip->rotate(x, y);
 }
 
@@ -152,6 +153,10 @@ void Player::update(sf::Time delta)
 
             float newX = cos(m_currentShip->angle()) * m_velocity * delta.asSeconds();
             float newY = sin(m_currentShip->angle()) * m_velocity * delta.asSeconds();
+
+            float d = stuffDistanceF(position().x, position().y, m_targetPos.x, m_targetPos.y);
+            if (d < 1.f)
+                m_velocity = 0;
 
             ship.second->move(newX, newY);
         }

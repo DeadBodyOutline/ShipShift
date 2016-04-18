@@ -35,27 +35,17 @@ int main()
         // TODO: rotate spaceship right
     });
 
-    input.registerKeyHandler(sf::Keyboard::W, [&](sf::Event e){
-        player.accelerate();
-    });
+    input.registerHandler(sf::Event::MouseButtonPressed, [&](sf::Event e){
+        if (e.mouseButton.button == sf::Mouse::Button::Left)
+            player.attack();
 
-    input.registerKeyHandler(sf::Keyboard::S, [&](sf::Event e){
-        player.deacelerate();
-    });
-
-    input.registerKeyHandler(sf::Keyboard::Space, [&](sf::Event e){
-        player.attack();
-    });
-
-    input.registerKeyHandler(sf::Keyboard::LControl, [&](sf::Event e){
-        // we can set a target like this:
-        // player.altAttack(sf::Mouse::getPosition());
-        // Player should check if the currentShip can set a target
-        player.altAttack();
+        if (e.mouseButton.button == sf::Mouse::Button::Right)
+            player.altAttack();
     });
 
     input.registerHandler(sf::Event::MouseMoved, [&](sf::Event e){
         player.rotate(e.mouseMove.x, e.mouseMove.y);
+        player.accelerate();
     });
 
     /// XXX just to quick test ship changing

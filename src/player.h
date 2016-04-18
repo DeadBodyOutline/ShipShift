@@ -61,6 +61,7 @@ private:
 
     float m_velocity;
     float m_step;
+    sf::Vector2f m_targetPos;
 
     float m_hull;
 };
