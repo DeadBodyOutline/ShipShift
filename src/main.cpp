@@ -269,7 +269,18 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("resources/pressstart.ttf"))
         std::cout << "Failed to load font!" << std::endl;
+
     sf::RenderWindow renderWindow(sf::VideoMode(800u, 600u), "ld35");
+
+    bool gameStarted = false;
+    sf::Texture dboTexture;
+    if (!dboTexture.loadFromFile("resources/dbo.png"))
+    std::cout << "Failed to load image!" << std::endl;
+    sf::Sprite dboSprite;
+    dboSprite.setTexture(dboTexture);
+    dboSprite.setPosition(renderWindow.getSize().x / 2.f - dboTexture.getSize().x /2.f,
+                          renderWindow.getSize().y / 2.f - dboTexture.getSize().y /2.f);
+    float splashTime = 3.f;
 
     sf::Clock deltaClock, frameClock;
     const float dt = 0.01f;
@@ -335,7 +346,20 @@ int main()
         sf::Vector2f movement;
         while (accumulator >= dt) {
             accumulator -= dt;
-            scene->update(dt);
+            if (gameStarted)
+                scene->update(dt);
+            else {
+                splashTime -= dt;
+                if (splashTime <= 0.f)
+                    gameStarted = true;
+            }
+        }
+
+        if (!gameStarted) {
+            renderWindow.clear();
+            renderWindow.draw(dboSprite);
+            renderWindow.display();
+            continue;
         }
 
         bool gameOver = scene->player()->health() <= 0.f;
