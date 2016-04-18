@@ -17,6 +17,9 @@ public:
 
     void update(sf::Time delta = sf::Time::Zero);
 
+    float shieldDuration() const { return m_shieldDuration; }
+    float shieldEnergy() const { return m_shieldDurationAcc; }
+
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

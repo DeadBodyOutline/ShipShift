@@ -9,6 +9,7 @@
 #include "player.h"
 #include "scene.h"
 #include "triangleship.h"
+#include "circleship.h"
 
 // TODO: create a HUD class
 sf::Text getWaveText(sf::Font &font, unsigned int wave)
@@ -90,12 +91,45 @@ void drawTriangleShipInfo(sf::RenderWindow &game, sf::Font &font)
 
 void drawRectangleShipInfo(sf::RenderWindow &game, sf::Font &font)
 {
-
 }
 
 void drawCircleShipInfo(sf::RenderWindow &game, sf::Font &font)
 {
+    sf::RectangleShape cooldownBar(sf::Vector2f(100.f, 10.f));
+    cooldownBar.setFillColor(sf::Color(255, 0, 0));
+    cooldownBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownBar.setOutlineThickness(3);
 
+
+    CircleShip *ship = static_cast<CircleShip *>(Scene::instance()->player()->currentShip());
+    float cooldown = ship->shieldDuration();
+    float cooldownCounter = ship->shieldEnergy();
+    float value = 1.f;
+    if (cooldownCounter > 0.f)
+        value = cooldownCounter / cooldown;
+
+    sf::RectangleShape cooldownValueBar(sf::Vector2f(cooldownBar.getSize().x * value, 10.f));
+    cooldownValueBar.setFillColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineColor(sf::Color(0, 255, 0));
+    cooldownValueBar.setOutlineThickness(3);
+
+    sf::Vector2f pos(game.getSize().x - cooldownBar.getSize().x - 10.f,
+                     game.getSize().y - 26.f);
+    cooldownBar.setPosition(pos);
+    cooldownValueBar.setPosition(pos);
+    game.draw(cooldownBar);
+    game.draw(cooldownValueBar);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Shield Energy");
+    sf::Vector2f textPos(game.getSize().x - cooldownBar.getSize().x - 10.f,
+                         game.getSize().y - 30.f);
+    textPos.x -= cooldownBar.getSize().x + 140.f;
+    text.setPosition(textPos);
+    text.setCharacterSize(15);
+    text.setColor(sf::Color::White);
+    game.draw(text);
 }
 
 int main()
