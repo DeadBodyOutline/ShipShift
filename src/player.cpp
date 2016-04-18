@@ -113,8 +113,12 @@ void Player::receiveDamage(float damage, bool isShip)
 
     if (m_shipType == Circle) {
         CircleShip *ship = static_cast<CircleShip *>(m_currentShip);
-        if (ship->shieldUp() && !isShip)
-            damage *= 0;
+        if (ship->shieldUp() && !isShip) {
+            m_hull += damage * 0.5f;
+            if (m_hull > m_totalHull)
+                m_hull = m_totalHull;
+            damage = 0;
+        }
     }
 
     m_hull = std::max(0.f, m_hull - damage);
