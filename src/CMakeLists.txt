@@ -22,7 +22,21 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/guidedprojectile.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+if (APPLE)
+    list(APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/osx_helper/ResourcePath.hpp)
+    list(APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/osx_helper/ResourcePath.mm)
+    set(TARGET_SYSTEM "mac")
+    set(MACOSX_BUNDLE true)
+endif()
+
+if(APPLE)
+    set(EXTRA_TARGET_LINK_LIBRARIES "-framework Foundation")
+else()
+    set(EXTRA_TARGET_LINK_LIBRARIES "")
+endif()
+
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCES})
+target_link_libraries(${PROJECT_NAME} ${EXTRA_TARGET_LINK_LIBRARIES})
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")

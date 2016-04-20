@@ -12,6 +12,12 @@
 #include "circleship.h"
 #include "rectangleship.h"
 
+#if __APPLE__
+    #include "osx_helper/ResourcePath.hpp"
+#else
+    std::string resourcePath(void) { return ""; }
+#endif
+
 // TODO: create a HUD class
 sf::Text getWaveText(sf::Font &font, unsigned int wave)
 {
@@ -304,7 +310,8 @@ void drawWaveInfo(sf::RenderWindow &game, sf::Font &font)
 int main()
 {
     sf::Font font;
-    if (!font.loadFromFile("resources/pressstart.ttf"))
+    //if (!font.loadFromFile("resources/pressstart.ttf"))
+    if (!font.loadFromFile(resourcePath() + "resources/pressstart.ttf"))
         std::cout << "Failed to load font!" << std::endl;
 
     sf::RenderWindow renderWindow(sf::VideoMode(800u, 600u), "ld35");
@@ -313,7 +320,8 @@ int main()
     bool gameStarted = false;
     bool gameOver = false;
     sf::Texture dboTexture;
-    if (!dboTexture.loadFromFile("resources/dbo.png"))
+    //if (!dboTexture.loadFromFile("resources/dbo.png"))
+    if (!dboTexture.loadFromFile(resourcePath() + "resources/dbo.png"))
     std::cout << "Failed to load image!" << std::endl;
     sf::Sprite dboSprite;
     dboSprite.setTexture(dboTexture);
