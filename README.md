@@ -2,7 +2,7 @@
 Game made for Ludum Dare 35
 
 Game entry (also builds): http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=38495  
-Post-Mortem: TBD
+Post-Mortem: [here](http://ludumdare.com/compo/2016/05/05/shipshift-postmortem/)
 
 See [ld35 tag](https://github.com/DeadBodyOutline/ShipShift/tree/ld35) for the submission code base.  
 Please, report any error [here](https://github.com/DeadBodyOutline/ShipShift/issues) or on the [game entry page](http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=38495).
